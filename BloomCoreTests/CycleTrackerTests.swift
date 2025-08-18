@@ -19,6 +19,15 @@ class CycleTracker {
     func logCycleEndDate(_ date: Date) {
         cycleEndDate = date
     }
+    
+    func deleteCycleStartDate() {
+        cycleStartDate = nil
+    }
+    
+    func deleteCycleEndDate() {
+        cycleEndDate = nil
+    }
+    
 }
 
 
@@ -45,7 +54,7 @@ struct CycleTrackerTests {
     }
 
     @Test
-    func test_logCycleEndDate_capturesLatestStartDateAfterEditing() {
+    func test_logCycleStartDate_capturesLatestStartDateAfterEditing() {
         let (oldStartDate, newStartDate) = createEditingDates(withOffset: 345)
         let sut = makeSUT()
         
@@ -64,6 +73,26 @@ struct CycleTrackerTests {
         sut.logCycleEndDate(newEndDate)
 
         #expect(sut.cycleEndDate == newEndDate)
+    }
+    
+    @Test
+    func test_deleteCycleStartDate_resetsStartDateToNil() {
+        let sut = makeSUT()
+        
+        sut.logCycleStartDate(Date())
+        sut.deleteCycleStartDate()
+        
+        #expect(sut.cycleStartDate == nil)
+    }
+    
+    @Test
+    func test_deleteCycleEndDate_resetsEndDateToNil() {
+        let sut = makeSUT()
+        
+        sut.logCycleEndDate(Date())
+        sut.deleteCycleEndDate()
+        
+        #expect(sut.cycleEndDate == nil)
     }
     
     private func makeSUT() -> CycleTracker {
