@@ -9,15 +9,19 @@ import Testing
 import Foundation
 
 struct CycleDate: Equatable {
-    var cycleStartDate: Date?
-    var cycleEndDate: Date?
+    var startDate: Date?
+    var endDate: Date?
 }
 
 class CycleTracker {
-    let cycleDates: [CycleDate] = []
+    var cycleDates: [CycleDate] = []
     
     var cycleStartDate: Date?
     var cycleEndDate: Date?
+    
+    func logCycleDate(_ cycleDate: CycleDate) {
+        cycleDates.append(cycleDate)
+    }
     
     func logCycleStartDate(_ date: Date) {
         cycleStartDate = date
@@ -44,13 +48,14 @@ class CycleTracker {
 struct CycleTrackerTests {
 
     @Test
-    func test_logCycleStartDate_capturesCurrentStartDate() {
-        let startDate = Date()
+    func test_logCycleDate_capturesCurrentDateWhenCycleDatesIsEmpty() {
+        let cycleDate = CycleDate(startDate: Date(), endDate: Date(timeIntervalSinceNow: 1234))
         let sut = makeSUT()
         
-        sut.logCycleStartDate(startDate)
+        sut.logCycleDate(cycleDate)
         
-        #expect(sut.cycleStartDate == startDate)
+        #expect(sut.cycleDates.first?.startDate == cycleDate.startDate)
+        #expect(sut.cycleDates.first?.endDate == cycleDate.endDate)
     }
     
     @Test
