@@ -10,10 +10,14 @@ import Foundation
 
 class CycleTracker {
     var cycleStartDate: Date?
-    
+    var cycleEndDate: Date?
     
     func logCycleStartDate(_ date: Date) {
         cycleStartDate = date
+    }
+    
+    func logCycleEndDate(_ date: Date) {
+        cycleEndDate = date
     }
 }
 
@@ -21,12 +25,23 @@ class CycleTracker {
 struct CycleTrackerTests {
 
     @Test
-    func test_addCycleStartDate_capturesCurrentStartDate() {
+    func test_logCycleStartDate_capturesCurrentStartDate() {
         let startDate = Date()
         let sut = CycleTracker()
+        
         sut.logCycleStartDate(startDate)
         
         #expect(sut.cycleStartDate == startDate)
+    }
+    
+    @Test
+    func test_logCycleEndDate_capturesCurrentEndDate() {
+        let startDate = Date()
+        let sut = CycleTracker()
+        
+        sut.logCycleEndDate(startDate)
+        
+        #expect(sut.cycleEndDate == startDate)
     }
 
 }
