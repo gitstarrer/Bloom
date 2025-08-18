@@ -61,6 +61,18 @@ struct CycleTrackerTests {
         #expect(sut.cycleDates.first?.startDate == cycleDate.startDate)
         #expect(sut.cycleDates.first?.endDate == cycleDate.endDate)
     }
+    
+    @Test
+    func test_logCycleDate_capturesCurrentDateWhenCycleDatesIsNotEmpty() {
+        let firstCycleDate = CycleDate(startDate: Date(), endDate: Date(timeIntervalSinceNow: 1234))
+        let secondCycleDate = createCycleDate(Date(timeIntervalSince1970: 123), Date(timeIntervalSinceNow: 5656))
+        let sut = makeSUT()
+        
+        sut.logCycleDate(firstCycleDate)
+        sut.logCycleDate(secondCycleDate)
+        
+        #expect(sut.cycleDates == [firstCycleDate, secondCycleDate])
+    }
 
     @Test
     func test_logCycleDate_capturesLatestDateAfterEditing() {
