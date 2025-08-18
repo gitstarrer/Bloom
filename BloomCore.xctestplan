@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "6F8CC18E-78AE-4A17-8735-AB766C3088EC",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Bloom.xcodeproj",
+        "identifier" : "F19CEA562E536FE600D1FBBF",
+        "name" : "BloomCoreTests"
+      }
+    }
+  ],
+  "version" : 1
+}
