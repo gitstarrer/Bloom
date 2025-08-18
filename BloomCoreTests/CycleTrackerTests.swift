@@ -27,7 +27,7 @@ struct CycleTrackerTests {
     @Test
     func test_logCycleStartDate_capturesCurrentStartDate() {
         let startDate = Date()
-        let sut = CycleTracker()
+        let sut = makeSUT()
         
         sut.logCycleStartDate(startDate)
         
@@ -36,12 +36,15 @@ struct CycleTrackerTests {
     
     @Test
     func test_logCycleEndDate_capturesCurrentEndDate() {
-        let startDate = Date()
-        let sut = CycleTracker()
+        let endDate = Date()
+        let sut = makeSUT()
         
-        sut.logCycleEndDate(startDate)
+        sut.logCycleEndDate(endDate)
         
-        #expect(sut.cycleEndDate == startDate)
+        #expect(sut.cycleEndDate == endDate)
     }
 
+    private func makeSUT() -> CycleTracker {
+        CycleTracker()
+    }
 }
