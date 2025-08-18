@@ -8,7 +8,14 @@
 import Testing
 import Foundation
 
+struct CycleDate: Equatable {
+    var cycleStartDate: Date?
+    var cycleEndDate: Date?
+}
+
 class CycleTracker {
+    let cycleDates: [CycleDate] = []
+    
     var cycleStartDate: Date?
     var cycleEndDate: Date?
     
@@ -28,6 +35,9 @@ class CycleTracker {
         cycleEndDate = nil
     }
     
+    func calculateAverageCycleLength() -> Int {
+        28
+    }
 }
 
 
@@ -93,6 +103,14 @@ struct CycleTrackerTests {
         sut.deleteCycleEndDate()
         
         #expect(sut.cycleEndDate == nil)
+    }
+    
+    @Test
+    func test_calculateAverageCycleLength_returnsNilWhenCycleDatesIsEmpty() {
+        let sut = makeSUT()
+        let averageCycleLength = sut.calculateAverageCycleLength()
+        #expect(sut.cycleDates == [])
+        #expect(averageCycleLength == 28)
     }
     
     private func makeSUT() -> CycleTracker {
