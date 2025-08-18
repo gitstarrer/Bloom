@@ -19,8 +19,12 @@ class CycleTracker {
     var cycleStartDate: Date?
     var cycleEndDate: Date?
     
-    func logCycleDate(_ cycleDate: CycleDate) {
-        cycleDates.append(cycleDate)
+    func logCycleDate(_ cycleDate: CycleDate, at index: Int? = nil) {
+        if let index, index < cycleDates.count {
+            cycleDates[index] = cycleDate
+        } else {
+            cycleDates.append(cycleDate)
+        }
     }
     
     func logCycleStartDate(_ date: Date) {
@@ -57,26 +61,18 @@ struct CycleTrackerTests {
         #expect(sut.cycleDates.first?.startDate == cycleDate.startDate)
         #expect(sut.cycleDates.first?.endDate == cycleDate.endDate)
     }
-    
-    @Test
-    func test_logCycleEndDate_capturesCurrentEndDate() {
-        let endDate = Date()
-        let sut = makeSUT()
-        
-        sut.logCycleEndDate(endDate)
-        
-        #expect(sut.cycleEndDate == endDate)
-    }
 
     @Test
-    func test_logCycleStartDate_capturesLatestStartDateAfterEditing() {
-        let (oldStartDate, newStartDate) = createEditingDates(withOffset: 345)
+    func test_logCycleDate_capturesLatestDateAfterEditing() {
+        let oldCycleDate = createCycleDate(Date(timeIntervalSince1970: 123), Date(timeIntervalSinceNow: 99))
+        let newCycleDate = createCycleDate(Date(timeIntervalSince1970: 245), Date(timeIntervalSinceNow: 999))
         let sut = makeSUT()
         
-        sut.logCycleStartDate(oldStartDate)
-        sut.logCycleStartDate(newStartDate)
+        sut.logCycleDate(oldCycleDate)
+        sut.logCycleDate(newCycleDate, at: 0)
 
-        #expect(sut.cycleStartDate == newStartDate)
+        #expect(sut.cycleDates.first?.startDate == newCycleDate.startDate)
+        #expect(sut.cycleDates.first?.endDate == newCycleDate.endDate)
     }
     
     @Test
@@ -124,5 +120,9 @@ struct CycleTrackerTests {
     
     private func createEditingDates(withOffset offset: TimeInterval) -> (oldDate: Date, newDate: Date) {
         (Date(), Date(timeIntervalSinceNow: offset))
+    }
+    
+    private func createCycleDate(_ startDate: Date = Date(), _ endDate: Date = Date(timeIntervalSinceNow: 23)) -> CycleDate {
+        CycleDate(startDate: startDate, endDate: endDate)
     }
 }
