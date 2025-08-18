@@ -44,6 +44,19 @@ struct CycleTrackerTests {
         #expect(sut.cycleEndDate == endDate)
     }
 
+    @Test
+    func test_logCycleEndDate_capturesLatestEndDateAfterEditing() {
+        let oldEndDate = Date()
+        let newEndDate = Date(timeIntervalSinceNow: 1234)
+        
+        let sut = makeSUT()
+        
+        sut.logCycleEndDate(oldEndDate)
+        sut.logCycleEndDate(newEndDate)
+
+        #expect(sut.cycleEndDate == newEndDate)
+    }
+    
     private func makeSUT() -> CycleTracker {
         CycleTracker()
     }
