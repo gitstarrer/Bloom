@@ -46,9 +46,7 @@ struct CycleTrackerTests {
 
     @Test
     func test_logCycleEndDate_capturesLatestStartDateAfterEditing() {
-        let oldStartDate = Date()
-        let newStartDate = Date(timeIntervalSinceNow: 1234)
-        
+        let (oldStartDate, newStartDate) = createEditingDates(withOffset: 345)
         let sut = makeSUT()
         
         sut.logCycleStartDate(oldStartDate)
@@ -59,9 +57,7 @@ struct CycleTrackerTests {
     
     @Test
     func test_logCycleEndDate_capturesLatestEndDateAfterEditing() {
-        let oldEndDate = Date()
-        let newEndDate = Date(timeIntervalSinceNow: 1234)
-        
+        let (oldEndDate, newEndDate) = createEditingDates(withOffset: 1234)
         let sut = makeSUT()
         
         sut.logCycleEndDate(oldEndDate)
@@ -72,5 +68,9 @@ struct CycleTrackerTests {
     
     private func makeSUT() -> CycleTracker {
         CycleTracker()
+    }
+    
+    private func createEditingDates(withOffset offset: TimeInterval) -> (oldDate: Date, newDate: Date) {
+        (Date(), Date(timeIntervalSinceNow: offset))
     }
 }
