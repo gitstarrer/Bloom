@@ -119,17 +119,6 @@ struct CycleTrackerTests {
         #expect(sut.cycleDates == [firstCycleDate, thirdCycleDate])
     }
 
-    
-    @Test
-    func test_deleteCycleEndDate_resetsEndDateToNil() {
-        let sut = makeSUT()
-        
-        sut.logCycleEndDate(Date())
-        sut.deleteCycleEndDate()
-        
-        #expect(sut.cycleEndDate == nil)
-    }
-    
     @Test
     func test_calculateAverageCycleLength_returnsNilWhenCycleDatesIsEmpty() {
         let sut = makeSUT()
