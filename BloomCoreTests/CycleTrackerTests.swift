@@ -8,7 +8,7 @@
 import Testing
 import Foundation
 
-struct CycleDate: Equatable {
+struct CycleDate: Equatable, Hashable {
     var startDate: Date
     var endDate: Date?
 }
@@ -22,6 +22,7 @@ class CycleTracker {
         } else {
             cycleDates.append(cycleDate)
         }
+        cycleDates = Array(Set(cycleDates))
         cycleDates.sort { $0.startDate < $1.startDate }
     }
     
@@ -81,6 +82,17 @@ struct CycleTrackerTests {
         let reversedCycles = cycles.sorted { $0.startDate > $1.startDate }
         
         reversedCycles.forEach { sut.logCycleDate($0) }
+        
+        #expect(sut.cycleDates == cycles)
+    }
+    
+    @Test
+    func test_logCycleDate_hasSortedAndUniqueDatesWhenMultipleEntriesAreLoggedWithDuplicateEntries() {
+        let cycles = createMultipleCycleDates(count: 7)
+        let cyclesWithDuplicates: [CycleDate] = cycles + cycles
+        let sut = makeSUT()
+        
+        cyclesWithDuplicates.forEach { sut.logCycleDate($0) }
         
         #expect(sut.cycleDates == cycles)
     }
