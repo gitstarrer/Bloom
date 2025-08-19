@@ -12,6 +12,8 @@ public class CycleTracker {
     
     public init() {}
     
+    private var defaultCycleLength: Int = 28
+    
     public func logCycleDate(_ cycleDate: Cycle) throws {
         if let endDate = cycleDate.endDate, cycleDate.startDate > endDate {
             throw CycleError.invalidDateRange
@@ -27,7 +29,7 @@ public class CycleTracker {
     }
     
     public func calculateAverageCycleLength(maxRecentCycles: Int? = nil) -> Int {
-        guard cycleDates.count > 1 else { return 28 }
+        guard cycleDates.count > 1 else { return defaultCycleLength }
 
         var sortedCycleDates = cycleDates.sorted { $0.startDate < $1.startDate }
         if let maxRecentCycles {
@@ -42,5 +44,12 @@ public class CycleTracker {
         
         let totalDays = cycleDays.reduce(0, +)
         return totalDays / cycleDays.count
+    }
+    
+    public func predictNextCycleStartDay() throws -> Int {
+        if cycleDates.isEmpty {
+            throw CycleError.noDataAvailable
+        }
+        return defaultCycleLength
     }
 }

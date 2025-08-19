@@ -202,7 +202,17 @@ struct CycleTrackerTests {
 
         #expect(average == 30)
     }
+    
+    @Test
+    func test_predictNextCycleStartDay_throwsErrorWhenNoDataAvailable() {
+        let sut = makeSUT()
+        #expect(throws: CycleError.noDataAvailable, performing: {
+            try sut.predictNextCycleStartDay()
+        })
+    }
 
+    
+    //Helpers
     private func makeSUT() -> CycleTracker {
         CycleTracker()
     }
