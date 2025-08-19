@@ -10,7 +10,7 @@ import Foundation
 
 struct CycleDate: Equatable {
     var startDate: Date
-    var endDate: Date
+    var endDate: Date?
 }
 
 class CycleTracker {
@@ -22,6 +22,7 @@ class CycleTracker {
         } else {
             cycleDates.append(cycleDate)
         }
+        cycleDates.sort { $0.startDate < $1.startDate }
     }
     
     func deleteCycleDate(at index: Int) {
@@ -71,6 +72,17 @@ struct CycleTrackerTests {
         sut.logCycleDate(cycles[1])
         
         #expect(sut.cycleDates == [cycles[0], cycles[1]])
+    }
+    
+    @Test
+    func test_logCycleDate_hasSortedDatesWhenMultipleEntriesAreLogged() {
+        let cycles = createMultipleCycleDates(count: 7)
+        let sut = makeSUT()
+        let reversedCycles = cycles.sorted { $0.startDate > $1.startDate }
+        
+        reversedCycles.forEach { sut.logCycleDate($0) }
+        
+        #expect(sut.cycleDates == cycles)
     }
 
     @Test
@@ -177,7 +189,7 @@ struct CycleTrackerTests {
         return Array(cycles.prefix(upTo: count))
     }
     
-    private func createCycleDate(startDate: Date, endDate: Date) -> CycleDate {
+    private func createCycleDate(startDate: Date, endDate: Date? = nil) -> CycleDate {
         CycleDate(startDate: startDate, endDate: endDate)
     }
     
