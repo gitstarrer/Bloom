@@ -77,6 +77,18 @@ struct CycleTrackerTests {
     }
     
     @Test
+    func test_logCycleDate_replacesDateWhenLoggingWithTheSameStartDateTwice() {
+        let cycleDate = createCycleDate(startDate: date("2025-01-01"), endDate: date("2025-01-05"))
+        let updatedCycleDate = createCycleDate(startDate: date("2025-01-01"), endDate: date("2025-01-03"))
+        let sut = makeSUT()
+        
+        sut.logCycleDate(cycleDate)
+        sut.logCycleDate(updatedCycleDate)
+        
+        #expect(sut.cycleDates == [updatedCycleDate])
+    }
+    
+    @Test
     func test_logCycleDate_hasSortedDatesWhenMultipleEntriesAreLogged() {
         let cycles = createMultipleCycleDates(count: 7)
         let sut = makeSUT()
