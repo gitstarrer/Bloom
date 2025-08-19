@@ -64,39 +64,29 @@ struct CycleTrackerTests {
     
     @Test
     func test_logCycleDate_capturesCurrentDateWhenCycleDatesIsNotEmpty() {
-        let firstCycleDate = createCycleDate(startDate: date("2025-03-28"), endDate: date("2025-04-01"))
-        let secondCycleDate = createCycleDate(startDate: date("2025-05-26"), endDate: date("2025-05-30"))
+        let cycles = createMultipleCycleDates(count: 2)
         let sut = makeSUT()
         
-        sut.logCycleDate(firstCycleDate)
-        sut.logCycleDate(secondCycleDate)
+        sut.logCycleDate(cycles[0])
+        sut.logCycleDate(cycles[1])
         
-        #expect(sut.cycleDates == [firstCycleDate, secondCycleDate])
+        #expect(sut.cycleDates == [cycles[0], cycles[1]])
     }
 
     @Test
     func test_logCycleDate_capturesLatestDateAfterEditingWithOneEntry() {
-        let oldCycleDate = createCycleDate(startDate: date("2025-02-27"), endDate: date("2025-03-03"))
-        let newCycleDate = createCycleDate(startDate: date("2025-03-28"), endDate: date("2025-04-01"))
+        let cycles = createMultipleCycleDates(count: 2)
         let sut = makeSUT()
         
-        sut.logCycleDate(oldCycleDate)
-        sut.logCycleDate(newCycleDate, at: 0)
+        sut.logCycleDate(cycles[0])
+        sut.logCycleDate(cycles[1], at: 0)
 
-        #expect(sut.cycleDates == [newCycleDate])
+        #expect(sut.cycleDates == [cycles[1]])
     }
     
     @Test
     func test_logCycleDate_updatesCorrectDateAfterEditingWithMultipleEntries() {
-        let cycles = [
-            createCycleDate(startDate: date("2025-01-01"), endDate: date("2025-01-05")),
-            createCycleDate(startDate: date("2025-01-29"), endDate: date("2025-02-02")),
-            createCycleDate(startDate: date("2025-02-27"), endDate: date("2025-03-03")),
-            createCycleDate(startDate: date("2025-03-28"), endDate: date("2025-04-01")),
-            createCycleDate(startDate: date("2025-04-26"), endDate: date("2025-04-30")),
-            createCycleDate(startDate: date("2025-05-26"), endDate: date("2025-05-30")),
-            createCycleDate(startDate: date("2025-06-25"), endDate: date("2025-06-29"))
-        ]
+        let cycles = createMultipleCycleDates(count: 7)
         let sut = makeSUT()
         cycles.forEach { sut.logCycleDate($0) }
         #expect(sut.cycleDates == cycles)
@@ -122,17 +112,14 @@ struct CycleTrackerTests {
     @Test
     func test_deleteCycleDate_resetsDateToNilWhenCycleDatesHasMoreThanOneItem() {
         let sut = makeSUT()
+        let cycleDates = createMultipleCycleDates(count: 3)
         
-        let firstCycleDate = createCycleDate(startDate: date("2025-02-27"), endDate: date("2025-03-03"))
-        let secondCycleDate = createCycleDate(startDate: date("2025-03-28"), endDate: date("2025-04-01"))
-        let thirdCycleDate = createCycleDate(startDate: date("2025-04-26"), endDate: date("2025-04-30"))
-        
-        sut.logCycleDate(firstCycleDate)
-        sut.logCycleDate(secondCycleDate)
-        sut.logCycleDate(thirdCycleDate)
+        sut.logCycleDate(cycleDates[0])
+        sut.logCycleDate(cycleDates[1])
+        sut.logCycleDate(cycleDates[2])
         sut.deleteCycleDate(at: 1)
         
-        #expect(sut.cycleDates == [firstCycleDate, thirdCycleDate])
+        #expect(sut.cycleDates == [cycleDates[0], cycleDates[2]])
     }
 
     @Test
@@ -146,11 +133,10 @@ struct CycleTrackerTests {
     @Test
     func test_calculateAverageCycleLength_returnsAverageCycleLengthWithTwoEntries() {
         let sut = CycleTracker()
-        let cycle1 = createCycleDate(startDate: date("2025-01-01"), endDate: date("2025-01-05"))
-        let cycle2 = createCycleDate(startDate: date("2025-01-31"), endDate: date("2025-02-02"))
+        let cycles = createMultipleCycleDates(count: 2)
         
-        sut.logCycleDate(cycle1)
-        sut.logCycleDate(cycle2)
+        sut.logCycleDate(cycles[0])
+        sut.logCycleDate(cycles[1])
         
         #expect(sut.calculateAverageCycleLength() == 30)
     }
@@ -162,20 +148,12 @@ struct CycleTrackerTests {
         // Simulate 7 cycles with varying start dates
         // Jan 1, Jan 29 (28 days later), Feb 27 (29 days later), Mar 28 (29 days later),
         // Apr 26 (29 days later), May 26 (30 days later), Jun 25 (30 days later)
-        let cycles = [
-            createCycleDate(startDate: date("2025-01-01"), endDate: date("2025-01-05")),
-            createCycleDate(startDate: date("2025-01-29"), endDate: date("2025-02-02")),
-            createCycleDate(startDate: date("2025-02-27"), endDate: date("2025-03-03")),
-            createCycleDate(startDate: date("2025-03-28"), endDate: date("2025-04-01")),
-            createCycleDate(startDate: date("2025-04-26"), endDate: date("2025-04-30")),
-            createCycleDate(startDate: date("2025-05-26"), endDate: date("2025-05-30")),
-            createCycleDate(startDate: date("2025-06-25"), endDate: date("2025-06-29"))
-        ]
+        let cycles = createMultipleCycleDates(count: 7)
 
         cycles.forEach { sut.logCycleDate($0) }
 
         // We expect the average over last 6 intervals:
-        // [28, 29, 29, 29, 30, 30] → sum = 175 → avg = 29
+        // [31, 29, 29, 29, 30, 30] → sum = 177 → avg = 29
         let average = sut.calculateAverageCycleLength()
 
         #expect(average == 29)
@@ -183,6 +161,20 @@ struct CycleTrackerTests {
 
     private func makeSUT() -> CycleTracker {
         CycleTracker()
+    }
+    
+    private func createMultipleCycleDates(count: Int) -> [CycleDate] {
+        let cycles = [
+            createCycleDate(startDate: date("2025-01-01"), endDate: date("2025-01-05")),
+            createCycleDate(startDate: date("2025-01-31"), endDate: date("2025-02-02")),
+            createCycleDate(startDate: date("2025-02-27"), endDate: date("2025-03-03")),
+            createCycleDate(startDate: date("2025-03-28"), endDate: date("2025-04-01")),
+            createCycleDate(startDate: date("2025-04-26"), endDate: date("2025-04-30")),
+            createCycleDate(startDate: date("2025-05-26"), endDate: date("2025-05-30")),
+            createCycleDate(startDate: date("2025-06-25"), endDate: date("2025-06-29"))
+        ]
+        
+        return Array(cycles.prefix(upTo: count))
     }
     
     private func createCycleDate(startDate: Date, endDate: Date) -> CycleDate {
