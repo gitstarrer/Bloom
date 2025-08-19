@@ -8,7 +8,7 @@
 import Foundation
 
 public class CycleTracker {
-    public var cycleDates: [Cycle] = []
+    public var cycles: [Cycle] = []
     
     public init() {}
     
@@ -19,19 +19,19 @@ public class CycleTracker {
             throw CycleError.invalidDateRange
         }
         
-        cycleDates.removeAll { $0.startDate == cycleDate.startDate }
-        cycleDates.append(cycleDate)
-        cycleDates.sort { $0.startDate < $1.startDate }
+        cycles.removeAll { $0.startDate == cycleDate.startDate }
+        cycles.append(cycleDate)
+        cycles.sort { $0.startDate < $1.startDate }
     }
     
     public func delete(cycleDate date: Cycle) {
-        cycleDates.removeAll(where: { $0.startDate == date.startDate })
+        cycles.removeAll(where: { $0.startDate == date.startDate })
     }
     
     public func calculateAverageCycleLength(maxRecentCycles: Int? = nil) -> Int {
-        guard cycleDates.count > 1 else { return defaultCycleLength }
+        guard cycles.count > 1 else { return defaultCycleLength }
 
-        var sortedCycleDates = cycleDates.sorted { $0.startDate < $1.startDate }
+        var sortedCycleDates = cycles.sorted { $0.startDate < $1.startDate }
         if let maxRecentCycles {
             sortedCycleDates = sortedCycleDates.suffix(maxRecentCycles)
         }
@@ -47,7 +47,7 @@ public class CycleTracker {
     }
     
     public func predictNextCycleStartDay() throws -> Int {
-        if cycleDates.isEmpty {
+        if cycles.isEmpty {
             throw CycleError.noDataAvailable
         }
         return defaultCycleLength
