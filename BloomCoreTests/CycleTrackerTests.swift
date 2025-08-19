@@ -123,7 +123,7 @@ struct CycleTrackerTests {
     }
 
     @Test
-    func test_calculateAverageCycleLength_returnsNilWhenCycleDatesIsEmpty() {
+    func test_calculateAverageCycleLength_returnsDefaultCycleLengthWhenCycleDatesIsEmpty() {
         let sut = makeSUT()
         let averageCycleLength = sut.calculateAverageCycleLength()
         #expect(sut.cycleDates == [])
