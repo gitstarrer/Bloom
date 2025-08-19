@@ -75,7 +75,7 @@ struct CycleTrackerTests {
     }
 
     @Test
-    func test_logCycleDate_capturesLatestDateAfterEditing() {
+    func test_logCycleDate_capturesLatestDateAfterEditingWithOneEntry() {
         let oldCycleDate = createCycleDate(startDate: date("2025-02-27"), endDate: date("2025-03-03"))
         let newCycleDate = createCycleDate(startDate: date("2025-03-28"), endDate: date("2025-04-01"))
         let sut = makeSUT()
@@ -84,6 +84,28 @@ struct CycleTrackerTests {
         sut.logCycleDate(newCycleDate, at: 0)
 
         #expect(sut.cycleDates == [newCycleDate])
+    }
+    
+    @Test
+    func test_logCycleDate_updatesCorrectDateAfterEditingWithMultipleEntries() {
+        let cycles = [
+            createCycleDate(startDate: date("2025-01-01"), endDate: date("2025-01-05")),
+            createCycleDate(startDate: date("2025-01-29"), endDate: date("2025-02-02")),
+            createCycleDate(startDate: date("2025-02-27"), endDate: date("2025-03-03")),
+            createCycleDate(startDate: date("2025-03-28"), endDate: date("2025-04-01")),
+            createCycleDate(startDate: date("2025-04-26"), endDate: date("2025-04-30")),
+            createCycleDate(startDate: date("2025-05-26"), endDate: date("2025-05-30")),
+            createCycleDate(startDate: date("2025-06-25"), endDate: date("2025-06-29"))
+        ]
+        let sut = makeSUT()
+        cycles.forEach { sut.logCycleDate($0) }
+        #expect(sut.cycleDates == cycles)
+        
+        let newCycleDate = createCycleDate(startDate: date("2025-03-25"), endDate: date("2025-03-29"))
+        sut.logCycleDate(newCycleDate, at: 3)
+
+        #expect(sut.cycleDates.count == cycles.count)
+        #expect(sut.cycleDates[3] == newCycleDate)
     }
     
     @Test
