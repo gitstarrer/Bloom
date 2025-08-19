@@ -33,7 +33,7 @@ class CycleTracker {
     }
     
     func calculateAverageCycleLength(maxRecentCycles: Int? = nil) -> Int {
-        guard !cycleDates.isEmpty else { return 28 }
+        guard cycleDates.count > 1 else { return 28 }
 
         var sortedCycleDates = cycleDates.sorted { $0.startDate < $1.startDate }
         if let maxRecentCycles {
@@ -152,6 +152,16 @@ struct CycleTrackerTests {
         let averageCycleLength = sut.calculateAverageCycleLength()
         #expect(sut.cycleDates == [])
         #expect(averageCycleLength == 28)
+    }
+    
+    @Test
+    func test_calculateAverageCycleLength_returnsDefaultAverageCycleLengthWithOneEntry() {
+        let sut = CycleTracker()
+        let cycles = createMultipleCycleDates(count: 1)
+        
+        sut.logCycleDate(cycles[0])
+        
+        #expect(sut.calculateAverageCycleLength() == 28)
     }
     
     @Test
