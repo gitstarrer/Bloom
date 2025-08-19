@@ -112,10 +112,6 @@ struct CycleTrackerTests {
         CycleTracker()
     }
     
-    private func createEditingDates(withOffset offset: TimeInterval) -> (oldDate: Date, newDate: Date) {
-        (Date(), Date(timeIntervalSinceNow: offset))
-    }
-    
     private func createCycleDate(_ startDate: Date = Date(), _ endDate: Date = Date(timeIntervalSinceNow: 23)) -> CycleDate {
         CycleDate(startDate: startDate, endDate: endDate)
     }
