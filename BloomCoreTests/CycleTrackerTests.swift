@@ -100,7 +100,7 @@ struct CycleTrackerTests {
     }
 
     @Test
-    func test_logCycleDate_capturesLatestDateAfterEditingWithOneEntry() {
+    func test_logCycleDate_updatesDateAfterEditingWithOneEntry() {
         let cycleDate = createCycleDate(startDate: date("2025-01-01"), endDate: date("2025-01-05"))
         let updatedCycleDate = createCycleDate(startDate: date("2025-01-01"), endDate: date("2025-01-03"))
         let sut = makeSUT()
@@ -126,7 +126,7 @@ struct CycleTrackerTests {
     }
     
     @Test
-    func test_deleteCycleDate_resetsDateToNilWhenCycleDatesHasOneItem() {
+    func test_deleteCycleDate_removesDateWhenCycleDateHasOneItem() {
         let sut = makeSUT()
         let cycleDate = createCycleDate(startDate: date("2025-02-27"), endDate: date("2025-03-03"))
         
@@ -137,7 +137,7 @@ struct CycleTrackerTests {
     }
     
     @Test
-    func test_deleteCycleDate_resetsDateToNilWhenCycleDatesHasMoreThanOneItem() {
+    func test_deleteCycleDate_removesDateWhenCycleDatesHasMoreThanOneItem() {
         let sut = makeSUT()
         let cycleDates = createMultipleCycleDates(count: 3)
         
