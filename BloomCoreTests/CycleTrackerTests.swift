@@ -9,8 +9,8 @@ import Testing
 import Foundation
 
 struct CycleDate: Equatable {
-    var startDate: Date?
-    var endDate: Date?
+    var startDate: Date
+    var endDate: Date
 }
 
 class CycleTracker {
@@ -30,8 +30,22 @@ class CycleTracker {
         }
     }
     
-    func calculateAverageCycleLength() -> Int {
-        28
+    func calculateAverageCycleLength(maxRecentCycles: Int? = nil) -> Int {
+        guard !cycleDates.isEmpty else { return 28 }
+
+        var sortedCycleDates = cycleDates.sorted { $0.startDate < $1.startDate }
+        if let maxRecentCycles {
+            sortedCycleDates = sortedCycleDates.suffix(maxRecentCycles)
+        }
+        
+        var cycleDays = [Int]()
+        for i in 1..<sortedCycleDates.count {
+            let days = Calendar.current.dateComponents([.day], from: sortedCycleDates[i-1].startDate, to: sortedCycleDates[i].startDate).day ?? 0
+            cycleDays.append(days)
+        }
+        
+        let totalDays = cycleDays.reduce(0, +)
+        return totalDays / cycleDays.count
     }
 }
 
@@ -108,6 +122,24 @@ struct CycleTrackerTests {
         #expect(averageCycleLength == 28)
     }
     
+    @Test
+    func test_calculateAverageCycleLength_returnsAverageCycleLengthWithTwoEntries() {
+        let sut = CycleTracker()
+        let cycle1 = CycleDate(
+            startDate: Date(timeIntervalSince1970: 0),       // Jan 1
+            endDate: Date(timeIntervalSince1970: 86400 * 5)  // Jan 6
+        )
+        let cycle2 = CycleDate(
+            startDate: Date(timeIntervalSince1970: 86400 * 33), // Feb 3
+            endDate: Date(timeIntervalSince1970: 86400 * 37)    // Feb 7
+        )
+        
+        sut.logCycleDate(cycle1)
+        sut.logCycleDate(cycle2)
+        
+        #expect(sut.calculateAverageCycleLength() == 33)
+    }
+
     private func makeSUT() -> CycleTracker {
         CycleTracker()
     }
