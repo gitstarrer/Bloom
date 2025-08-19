@@ -38,8 +38,9 @@ public class CycleTracker {
         
         var cycleDays = [Int]()
         for i in 1..<sortedCycleDates.count {
-            let days = Calendar.current.dateComponents([.day], from: sortedCycleDates[i-1].startDate, to: sortedCycleDates[i].startDate).day ?? 0
-            cycleDays.append(days)
+            if let days = Calendar.current.dateComponents([.day], from: sortedCycleDates[i-1].startDate, to: sortedCycleDates[i].startDate).day {
+                cycleDays.append(days)
+            }
         }
         
         let totalDays = cycleDays.reduce(0, +)
