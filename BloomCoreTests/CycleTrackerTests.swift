@@ -63,6 +63,15 @@ enum CycleError: Error {
 
 struct CycleTrackerTests {
     
+    @Test
+    func test_logCycleDate_logsDateWhenEndDateIsNil() {
+        let cycleDate = createCycleDate(startDate: date("2025-01-01"), endDate: nil)
+        let sut = makeSUT()
+        
+        try? sut.logCycleDate(cycleDate)
+        
+        #expect(sut.cycleDates == [cycleDate])
+    }
     
     @Test
     func test_logCycleDate_throwsInvalidInputErrorWhenStartDateIsGreaterThanEndDate() {
