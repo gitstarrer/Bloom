@@ -35,6 +35,12 @@ class CycleTracker {
         cycleEndDate = date
     }
     
+    func deleteCycleDate(at index: Int) {
+        if index < cycleDates.count {
+            cycleDates.remove(at: index)
+        }
+    }
+    
     func deleteCycleStartDate() {
         cycleStartDate = nil
     }
@@ -88,25 +94,31 @@ struct CycleTrackerTests {
     }
     
     @Test
-    func test_logCycleEndDate_capturesLatestEndDateAfterEditing() {
-        let (oldEndDate, newEndDate) = createEditingDates(withOffset: 1234)
+    func test_deleteCycleDate_resetsDateToNilWhenCycleDatesHasOneItem() {
         let sut = makeSUT()
+        let cycleDate = createCycleDate()
         
-        sut.logCycleEndDate(oldEndDate)
-        sut.logCycleEndDate(newEndDate)
-
-        #expect(sut.cycleEndDate == newEndDate)
+        sut.logCycleDate(cycleDate)
+        sut.deleteCycleDate(at: 0)
+        
+        #expect(sut.cycleDates.isEmpty)
     }
     
     @Test
-    func test_deleteCycleStartDate_resetsStartDateToNil() {
+    func test_deleteCycleDate_resetsDateToNilWhenCycleDatesHasMoreThanOneItem() {
         let sut = makeSUT()
+        let firstCycleDate = createCycleDate()
+        let secondCycleDate = createCycleDate(Date(timeIntervalSince1970: 9090), Date(timeIntervalSinceNow: 1010))
+        let thirdCycleDate = createCycleDate(Date(timeIntervalSince1970: 123), Date(timeIntervalSinceNow: 5656))
         
-        sut.logCycleStartDate(Date())
-        sut.deleteCycleStartDate()
+        sut.logCycleDate(firstCycleDate)
+        sut.logCycleDate(secondCycleDate)
+        sut.logCycleDate(thirdCycleDate)
+        sut.deleteCycleDate(at: 1)
         
-        #expect(sut.cycleStartDate == nil)
+        #expect(sut.cycleDates == [firstCycleDate, thirdCycleDate])
     }
+
     
     @Test
     func test_deleteCycleEndDate_resetsEndDateToNil() {
