@@ -11,6 +11,14 @@ import Foundation
 struct CycleDate: Equatable, Hashable {
     var startDate: Date
     var endDate: Date?
+    
+    static func == (lhs: CycleDate, rhs: CycleDate) -> Bool {
+        lhs.startDate == rhs.startDate
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(startDate)
+    }
 }
 
 class CycleTracker {
@@ -23,7 +31,7 @@ class CycleTracker {
     }
     
     func delete(cycleDate date: CycleDate) {
-        cycleDates.removeAll(where: { $0.startDate == date.startDate && $0.endDate == date.endDate })
+        cycleDates.removeAll(where: { $0.startDate == date.startDate })
     }
     
     func calculateAverageCycleLength(maxRecentCycles: Int? = nil) -> Int {
