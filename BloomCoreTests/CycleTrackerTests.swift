@@ -7,59 +7,7 @@
 
 import Testing
 import Foundation
-
-struct Cycle: Equatable, Hashable {
-    var startDate: Date
-    var endDate: Date?
-    
-    static func == (lhs: Cycle, rhs: Cycle) -> Bool {
-        lhs.startDate == rhs.startDate
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(startDate)
-    }
-}
-
-class CycleTracker {
-    var cycleDates: [Cycle] = []
-    
-    func logCycleDate(_ cycleDate: Cycle) throws {
-        if let endDate = cycleDate.endDate, cycleDate.startDate > endDate {
-            throw CycleError.invalidDateRange
-        }
-        
-        cycleDates.removeAll { $0.startDate == cycleDate.startDate }
-        cycleDates.append(cycleDate)
-        cycleDates.sort { $0.startDate < $1.startDate }
-    }
-    
-    func delete(cycleDate date: Cycle) {
-        cycleDates.removeAll(where: { $0.startDate == date.startDate })
-    }
-    
-    func calculateAverageCycleLength(maxRecentCycles: Int? = nil) -> Int {
-        guard cycleDates.count > 1 else { return 28 }
-
-        var sortedCycleDates = cycleDates.sorted { $0.startDate < $1.startDate }
-        if let maxRecentCycles {
-            sortedCycleDates = sortedCycleDates.suffix(maxRecentCycles)
-        }
-        
-        var cycleDays = [Int]()
-        for i in 1..<sortedCycleDates.count {
-            let days = Calendar.current.dateComponents([.day], from: sortedCycleDates[i-1].startDate, to: sortedCycleDates[i].startDate).day ?? 0
-            cycleDays.append(days)
-        }
-        
-        let totalDays = cycleDays.reduce(0, +)
-        return totalDays / cycleDays.count
-    }
-}
-
-enum CycleError: Error {
-    case invalidDateRange
-}
+import BloomCore
 
 struct CycleTrackerTests {
     
@@ -78,8 +26,7 @@ struct CycleTrackerTests {
         let cycleDate = createCycleDate(startDate: date("2025-01-05"), endDate: date("2025-01-02"))
         let sut = makeSUT()
         
-        #expect(throws: CycleError.invalidDateRange,
-                performing: {
+        #expect(throws: CycleError.invalidDateRange, performing: {
             try sut.logCycleDate(cycleDate)
         })
     }
@@ -120,7 +67,7 @@ struct CycleTrackerTests {
     func test_logCycleDate_hasSortedDatesWhenMultipleEntriesAreLogged() {
         let cycles = createMultipleCycleDates(count: 7)
         let sut = makeSUT()
-        let reversedCycles = cycles.sorted { $0.startDate > $1.startDate }
+        let reversedCycles = cycles.reversed()
         
         reversedCycles.forEach { try? sut.logCycleDate($0) }
         
