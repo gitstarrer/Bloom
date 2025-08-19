@@ -16,9 +16,6 @@ struct CycleDate: Equatable {
 class CycleTracker {
     var cycleDates: [CycleDate] = []
     
-    var cycleStartDate: Date?
-    var cycleEndDate: Date?
-    
     func logCycleDate(_ cycleDate: CycleDate, at index: Int? = nil) {
         if let index, index < cycleDates.count {
             cycleDates[index] = cycleDate
@@ -27,26 +24,10 @@ class CycleTracker {
         }
     }
     
-    func logCycleStartDate(_ date: Date) {
-        cycleStartDate = date
-    }
-    
-    func logCycleEndDate(_ date: Date) {
-        cycleEndDate = date
-    }
-    
     func deleteCycleDate(at index: Int) {
         if index < cycleDates.count {
             cycleDates.remove(at: index)
         }
-    }
-    
-    func deleteCycleStartDate() {
-        cycleStartDate = nil
-    }
-    
-    func deleteCycleEndDate() {
-        cycleEndDate = nil
     }
     
     func calculateAverageCycleLength() -> Int {
