@@ -8,11 +8,11 @@
 import Testing
 import Foundation
 
-struct CycleDate: Equatable, Hashable {
+struct Cycle: Equatable, Hashable {
     var startDate: Date
     var endDate: Date?
     
-    static func == (lhs: CycleDate, rhs: CycleDate) -> Bool {
+    static func == (lhs: Cycle, rhs: Cycle) -> Bool {
         lhs.startDate == rhs.startDate
     }
     
@@ -22,15 +22,15 @@ struct CycleDate: Equatable, Hashable {
 }
 
 class CycleTracker {
-    var cycleDates: [CycleDate] = []
+    var cycleDates: [Cycle] = []
     
-    func logCycleDate(_ cycleDate: CycleDate) {
+    func logCycleDate(_ cycleDate: Cycle) {
         cycleDates.removeAll { $0.startDate == cycleDate.startDate }
         cycleDates.append(cycleDate)
         cycleDates.sort { $0.startDate < $1.startDate }
     }
     
-    func delete(cycleDate date: CycleDate) {
+    func delete(cycleDate date: Cycle) {
         cycleDates.removeAll(where: { $0.startDate == date.startDate })
     }
     
@@ -91,7 +91,7 @@ struct CycleTrackerTests {
     @Test
     func test_logCycleDate_hasSortedAndUniqueDatesWhenMultipleEntriesAreLoggedWithDuplicateEntries() {
         let cycles = createMultipleCycleDates(count: 7)
-        let cyclesWithDuplicates: [CycleDate] = cycles + cycles
+        let cyclesWithDuplicates: [Cycle] = cycles + cycles
         let sut = makeSUT()
         
         cyclesWithDuplicates.forEach { sut.logCycleDate($0) }
@@ -213,7 +213,7 @@ struct CycleTrackerTests {
         CycleTracker()
     }
     
-    private func createMultipleCycleDates(count: Int) -> [CycleDate] {
+    private func createMultipleCycleDates(count: Int) -> [Cycle] {
         let cycles = [
             createCycleDate(startDate: date("2025-01-01"), endDate: date("2025-01-05")),
             createCycleDate(startDate: date("2025-01-31"), endDate: date("2025-02-02")),
@@ -227,8 +227,8 @@ struct CycleTrackerTests {
         return Array(cycles.prefix(upTo: count))
     }
     
-    private func createCycleDate(startDate: Date, endDate: Date? = nil) -> CycleDate {
-        CycleDate(startDate: startDate, endDate: endDate)
+    private func createCycleDate(startDate: Date, endDate: Date? = nil) -> Cycle {
+        Cycle(startDate: startDate, endDate: endDate)
     }
     
     private func date(_ string: String) -> Date {
