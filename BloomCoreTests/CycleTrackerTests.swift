@@ -187,6 +187,19 @@ struct CycleTrackerTests {
 
         #expect(average == 29)
     }
+    
+    @Test
+    func test_calculateAverageCycleLength_returnsAverageCycleLengthWithMultipleEntriesForMaxRecentCycles() {
+        let sut = CycleTracker()
+        let cycles = createMultipleCycleDates(count: 7)
+        cycles.forEach { sut.logCycleDate($0) }
+
+        // We expect the average over last 2 intervals:
+        // [29, 29, 30, 30] → sum = 60 → avg = 30
+        let average = sut.calculateAverageCycleLength(maxRecentCycles: 2)
+
+        #expect(average == 30)
+    }
 
     private func makeSUT() -> CycleTracker {
         CycleTracker()
