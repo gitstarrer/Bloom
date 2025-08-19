@@ -210,7 +210,17 @@ struct CycleTrackerTests {
             try sut.predictNextCycleStartDay()
         })
     }
-
+    
+    @Test
+    func test_predictNextCycleStartDay_returnsDefaultAverageCycleWithOneEntry() {
+        let cycleDate = createMultipleCycleDates(count: 1)[0]
+        let sut = makeSUT()
+        try? sut.logCycleDate(cycleDate)
+        
+        let nextStartDayCount = try? sut.predictNextCycleStartDay()
+        
+        #expect(nextStartDayCount == 28)
+    }
     
     //Helpers
     private func makeSUT() -> CycleTracker {
