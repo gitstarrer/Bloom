@@ -71,8 +71,7 @@ struct CycleTrackerTests {
         let cycles = createMultipleCycleDates(count: 2)
         let sut = makeSUT()
         
-        sut.logCycleDate(cycles[0])
-        sut.logCycleDate(cycles[1])
+        cycles.forEach { sut.logCycleDate($0) }
         
         #expect(sut.cycleDates == [cycles[0], cycles[1]])
     }
@@ -140,10 +139,21 @@ struct CycleTrackerTests {
     func test_deleteCycleDate_removesDateWhenCycleDatesHasMoreThanOneItem() {
         let sut = makeSUT()
         let cycleDates = createMultipleCycleDates(count: 3)
+        cycleDates.forEach { sut.logCycleDate($0) }
         
-        sut.logCycleDate(cycleDates[0])
-        sut.logCycleDate(cycleDates[1])
-        sut.logCycleDate(cycleDates[2])
+        sut.delete(cycleDate: cycleDates[1])
+        
+        #expect(sut.cycleDates == [cycleDates[0], cycleDates[2]])
+    }
+    
+    @Test
+    func test_deleteCycleDate_removesUpdatedDateAfterUpdating() {
+        let sut = makeSUT()
+        let cycleDates = createMultipleCycleDates(count: 3)
+        cycleDates.forEach { sut.logCycleDate($0) }
+        let updatedCycleDate = createCycleDate(startDate: date("2025-01-01"), endDate: date("2025-01-04"))
+        sut.logCycleDate(updatedCycleDate)
+        
         sut.delete(cycleDate: cycleDates[1])
         
         #expect(sut.cycleDates == [cycleDates[0], cycleDates[2]])
@@ -171,10 +181,7 @@ struct CycleTrackerTests {
     func test_calculateAverageCycleLength_returnsAverageCycleLengthWithTwoEntries() {
         let sut = CycleTracker()
         let cycles = createMultipleCycleDates(count: 2)
-        
-        sut.logCycleDate(cycles[0])
-        sut.logCycleDate(cycles[1])
-        
+        cycles.forEach{ sut.logCycleDate($0) }
         #expect(sut.calculateAverageCycleLength() == 30)
     }
     
