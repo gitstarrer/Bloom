@@ -57,8 +57,8 @@ class CycleTracker {
 struct CycleTrackerTests {
 
     @Test
-    func test_logCycleDate_capturesCurrentDateWhenCycleDatesIsEmpty() {
-        let cycleDate = createCycleDate(startDate: date("2025-05-26"), endDate: date("2025-05-30"))
+    func test_logCycleDate_logsDateWhenCycleDatesIsEmpty() {
+        let cycleDate = createMultipleCycleDates(count: 1)[0]
         let sut = makeSUT()
         
         sut.logCycleDate(cycleDate)
@@ -67,7 +67,7 @@ struct CycleTrackerTests {
     }
     
     @Test
-    func test_logCycleDate_capturesCurrentDateWhenCycleDatesIsNotEmpty() {
+    func test_logCycleDate_logsDateWhenCycleDatesIsNotEmpty() {
         let cycles = createMultipleCycleDates(count: 2)
         let sut = makeSUT()
         
