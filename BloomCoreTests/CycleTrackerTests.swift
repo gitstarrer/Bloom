@@ -22,10 +22,8 @@ class CycleTracker {
         cycleDates.sort { $0.startDate < $1.startDate }
     }
     
-    func deleteCycleDate(at index: Int) {
-        if index < cycleDates.count {
-            cycleDates.remove(at: index)
-        }
+    func delete(cycleDate date: CycleDate) {
+        cycleDates.removeAll(where: { $0.startDate == date.startDate && $0.endDate == date.endDate })
     }
     
     func calculateAverageCycleLength(maxRecentCycles: Int? = nil) -> Int {
@@ -125,7 +123,7 @@ struct CycleTrackerTests {
         let cycleDate = createCycleDate(startDate: date("2025-02-27"), endDate: date("2025-03-03"))
         
         sut.logCycleDate(cycleDate)
-        sut.deleteCycleDate(at: 0)
+        sut.delete(cycleDate: cycleDate)
         
         #expect(sut.cycleDates.isEmpty)
     }
@@ -138,7 +136,7 @@ struct CycleTrackerTests {
         sut.logCycleDate(cycleDates[0])
         sut.logCycleDate(cycleDates[1])
         sut.logCycleDate(cycleDates[2])
-        sut.deleteCycleDate(at: 1)
+        sut.delete(cycleDate: cycleDates[1])
         
         #expect(sut.cycleDates == [cycleDates[0], cycleDates[2]])
     }
