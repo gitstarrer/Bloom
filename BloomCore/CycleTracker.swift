@@ -76,4 +76,24 @@ public class CycleTracker {
         
         return Int(averagePeriodLength.rounded())
     }
+    
+    public func getOvulationDate(forDate currentDate: Date = Date()) throws -> Date {
+        guard periods.count > 1 else { throw CycleError.notEnoughData }
+        let date = try predictNextPeriod(fromDate: currentDate)
+        guard let ovulationDate = Calendar.current.date(byAdding: .day, value: -14, to: date) else { throw CycleError.notEnoughData }
+        return ovulationDate
+    }
+    
+    public func getFertileWindow(forDate currentDate: Date = Date()) throws -> (start: Date, end: Date){
+        guard periods.count > 1 else { throw CycleError.notEnoughData }
+        
+        let ovulationDate = try getOvulationDate(forDate: currentDate)
+        
+        let fertileWindowStartDate = Calendar.current.date(byAdding: .day, value: -5, to: ovulationDate)
+        let fertileWindowEndDate = Calendar.current.date(byAdding: .day, value: 5, to: ovulationDate)
+        
+        guard let fertileWindowStartDate, let fertileWindowEndDate else { throw CycleError.notEnoughData }
+        
+        return (start: fertileWindowStartDate, end: fertileWindowEndDate)
+    }
 }

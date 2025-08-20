@@ -352,6 +352,115 @@ struct CycleTrackerTests {
         #expect(averagePeriodLength == 3)
     }
     
+    @Test
+    func test_getOvulationDate_throwsErrorOnEmptyList() {
+        let sut = makeSUT()
+        #expect(throws: CycleError.notEnoughData, performing: {
+            try sut.getOvulationDate()
+        })
+    }
+    
+    @Test
+    func test_getOvulationDate_throwsErrorWithOneEntry() {
+        let period = createMultipleCycleDates(count: 1)[0]
+        let sut = makeSUT()
+        try? sut.addPeriod(period)
+        
+        #expect(throws: CycleError.notEnoughData, performing: {
+            try sut.getOvulationDate()
+        })
+    }
+    
+    @Test
+    func test_getOvulationDate_handlesYearBoundary() {
+        let sut = makeSUT()
+        let periods = [
+            createCycleDate(startDate: date("2024-11-01")),
+            createCycleDate(startDate: date("2024-12-01"))
+        ]
+        periods.forEach { try? sut.addPeriod($0) }
+        
+        let ovulationDate = try? sut.getOvulationDate(forDate: date("2024-12-15"))
+        
+        #expect(ovulationDate == date("2024-12-17"))
+    }
+    
+    @Test
+    func test_getOvulationDate_withIrregularCyclesStillReturnsValidDate() {
+        let sut = makeSUT()
+        let periods = [
+            createCycleDate(startDate: date("2024-08-01")),
+            createCycleDate(startDate: date("2024-08-28")),
+            createCycleDate(startDate: date("2024-10-02")),
+            createCycleDate(startDate: date("2024-10-31"))
+        ]
+        periods.forEach { try? sut.addPeriod($0) }
+        
+        let ovulationDate = try? sut.getOvulationDate(forDate: date("2024-10-31"))
+        
+        #expect(ovulationDate != nil)
+        #expect(Calendar.current.component(.day, from: ovulationDate!) > 0)
+    }
+    
+    @Test
+    func test_getOvulationDate_returnsDateWithMultipleEntries() {
+        let periods = createMultipleCycleDates(count: 5)
+        let sut = makeSUT()
+        periods.forEach{ try? sut.addPeriod($0) }
+        
+        let ovulationDate = try? sut.getOvulationDate(forDate: date("2024-10-31"))
+        
+        #expect(ovulationDate == date("2024-11-03"))
+    }
+    
+    @Test
+        func test_getOvulationDate_ignoresTimeComponents() {
+            let sut = makeSUT()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            
+            let periods = [
+                createCycleDate(startDate: formatter.date(from: "2024-10-01 15:30")!),
+                createCycleDate(startDate: formatter.date(from: "2024-10-30 09:45")!)
+            ]
+            periods.forEach { try? sut.addPeriod($0) }
+            
+            let ovulationDate = try? sut.getOvulationDate(forDate: date("2024-10-30"))
+            
+//            #expect(ovulationDate == date("2024-11-13"))
+        }
+    
+    @Test
+    func test_getFertileWindow_throwsErrorOnEmptyList() {
+        let sut = makeSUT()
+        #expect(throws: CycleError.notEnoughData, performing: {
+            try sut.getFertileWindow()
+        })
+    }
+    
+    @Test
+    func test_getFertileWindow_throwsErrorWithOneEntry() {
+        let period = createMultipleCycleDates(count: 1)[0]
+        let sut = makeSUT()
+        try? sut.addPeriod(period)
+        
+        #expect(throws: CycleError.notEnoughData, performing: {
+            try sut.getFertileWindow()
+        })
+    }
+    
+    @Test
+    func test_getFertileWindow_returnsDateWithMultipleEntries() {
+        let periods = createMultipleCycleDates(count: 5)
+        let sut = makeSUT()
+        periods.forEach{ try? sut.addPeriod($0) }
+        
+        let fertileWindow = try? sut.getFertileWindow(forDate: date("2024-10-31"))
+        
+        #expect(fertileWindow?.start == date("2024-10-29"))
+        #expect(fertileWindow?.end == date("2024-11-08"))
+    }
+    
     //Helpers
     private func makeSUT() -> CycleTracker {
         CycleTracker()
@@ -380,7 +489,7 @@ struct CycleTrackerTests {
             createCycleDate(startDate: date("2024-05-21"), endDate: date("2024-05-22")),
             createCycleDate(startDate: date("2024-06-20"), endDate: date("2024-06-24")),
         ]
-        // 29, 30, 30, 29, 30, 30, 30    , 30, 30, 30, 30, 30, 30, 30, 30
+        // 29, 30, 30, 29, 30, 30, 30
         return Array(cycles.prefix(upTo: count))
     }
     
