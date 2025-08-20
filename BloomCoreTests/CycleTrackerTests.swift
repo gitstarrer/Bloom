@@ -104,7 +104,7 @@ struct CycleTrackerTests {
         cycles.forEach { try? sut.logCycleDate($0) }
         #expect(sut.cycles == cycles)
         
-        let newCycleDate = createCycleDate(startDate: date("2025-03-28"), endDate: date("2025-03-31"))
+        let newCycleDate = createCycleDate(startDate: date("2024-02-22"), endDate: date("2024-02-25"))
         try? sut.logCycleDate(newCycleDate)
 
         #expect(sut.cycles.count == cycles.count)
@@ -138,7 +138,7 @@ struct CycleTrackerTests {
         let sut = makeSUT()
         let cycleDates = createMultipleCycleDates(count: 3)
         cycleDates.forEach { try? sut.logCycleDate($0) }
-        let updatedCycleDate = createCycleDate(startDate: date("2025-01-01"), endDate: date("2025-01-04"))
+        let updatedCycleDate = createCycleDate(startDate: date("2023-12-24"), endDate: date("2023-12-25"))
         try? sut.logCycleDate(updatedCycleDate)
         
         sut.delete(cycleDate: cycleDates[1])
@@ -169,25 +169,18 @@ struct CycleTrackerTests {
         let sut = CycleTracker()
         let cycles = createMultipleCycleDates(count: 2)
         cycles.forEach{ try? sut.logCycleDate($0) }
-        #expect(sut.calculateAverageCycleLength() == 30)
+        #expect(sut.calculateAverageCycleLength() == 29)
     }
     
     @Test
     func test_calculateAverageCycleLength_returnsAverageCycleLengthWithMultipleEntries() {
         let sut = CycleTracker()
-
-        // Simulate 7 cycles with varying start dates
-        // Jan 1, Jan 29 (28 days later), Feb 27 (29 days later), Mar 28 (29 days later),
-        // Apr 26 (29 days later), May 26 (30 days later), Jun 25 (30 days later)
         let cycles = createMultipleCycleDates(count: 7)
-
         cycles.forEach { try? sut.logCycleDate($0) }
 
-        // We expect the average over last 6 intervals:
-        // [31, 29, 29, 29, 30, 30] → sum = 177 → avg = 29
         let average = sut.calculateAverageCycleLength()
 
-        #expect(average == 29)
+        #expect(average == 30)
     }
     
     @Test
@@ -196,8 +189,6 @@ struct CycleTrackerTests {
         let cycles = createMultipleCycleDates(count: 7)
         cycles.forEach { try? sut.logCycleDate($0) }
 
-        // We expect the average over last 2 intervals:
-        // [29, 29, 30, 30] → sum = 60 → avg = 30
         let average = sut.calculateAverageCycleLength(maxRecentCycles: 2)
 
         #expect(average == 30)
@@ -214,12 +205,13 @@ struct CycleTrackerTests {
     @Test
     func test_predictNextCycleStartDay_returnsDefaultAverageCycleWithOneEntry() {
         let cycleDate = createMultipleCycleDates(count: 1)[0]
-        let expectedNextStartDate = getExpectedCycleDay(from: date("2025-01-01"), withAverageCycle: 28)
+        let currentDate: Date = date("2024-03-17")
+        let expectedNextStartDate = getExpectedCycleDay(from: date("2023-11-25"), withAverageCycle: 28, fromDate: currentDate)
 
         let sut = makeSUT()
         try? sut.logCycleDate(cycleDate)
         
-        let nextCycleStartDay = try? sut.predictNextCycleStartDate()
+        let nextCycleStartDay = try? sut.predictNextCycleStartDate(fromDate: currentDate)
         
         #expect(nextCycleStartDay == expectedNextStartDate)
     }
@@ -227,12 +219,13 @@ struct CycleTrackerTests {
     @Test
     func test_predictNextCycleStartDay_returnsAverageCycleWithTwoEntries() {
         let cycleDates = createMultipleCycleDates(count: 2)
-        let expectedNextStartDate = getExpectedCycleDay(from: date("2025-01-31"), withAverageCycle: 30)
+        let currentDate: Date = date("2024-06-01")
+        let expectedNextStartDate = getExpectedCycleDay(from: date("2023-12-24"), withAverageCycle: 29, fromDate: currentDate)
         
         let sut = makeSUT()
         cycleDates.forEach{ try? sut.logCycleDate($0) }
 
-        let nextCycleStartDay = try? sut.predictNextCycleStartDate()
+        let nextCycleStartDay = try? sut.predictNextCycleStartDate(fromDate: currentDate)
         
         #expect(nextCycleStartDay == expectedNextStartDate)
     }
@@ -240,7 +233,7 @@ struct CycleTrackerTests {
     @Test
     func test_predictNextCycleStartDay_returnsAverageCycleWithMultipleEntries() {
         let cycleDates = createMultipleCycleDates(count: 7)
-        let expectedNextStartDate = getExpectedCycleDay(from: date("2025-06-25"), withAverageCycle: 29)
+        let expectedNextStartDate = getExpectedCycleDay(from: date("2024-05-21"), withAverageCycle: 30)
         
         let sut = makeSUT()
         cycleDates.forEach{ try? sut.logCycleDate($0) }
@@ -253,14 +246,28 @@ struct CycleTrackerTests {
     @Test
     func test_predictNextCycleStartDay_updatesAfterDeletingCycle() {
         let cycleDates = createMultipleCycleDates(count: 5)
-        let expectedNextStartDate = getExpectedCycleDay(from: date("2025-01-31"), withAverageCycle: 30)
+        let currentDate: Date = date("2024-06-01")
+        let expectedNextStartDate = getExpectedCycleDay(from: date("2023-12-24"), withAverageCycle: 29, fromDate: currentDate)
         let sut = makeSUT()
         cycleDates.forEach{ try? sut.logCycleDate($0) }
         sut.delete(cycleDate: cycleDates[2])
         sut.delete(cycleDate: cycleDates[3])
         sut.delete(cycleDate: cycleDates[4])
         
-        let nextCycleStartDay = try? sut.predictNextCycleStartDate()
+        let nextCycleStartDay = try? sut.predictNextCycleStartDate(fromDate: currentDate)
+        
+        #expect(nextCycleStartDay == expectedNextStartDate)
+    }
+    
+    @Test
+    func test_predictNextCycleStartDay_returnsAverageCycleWithMultipleEntriesInLeapYear() {
+        let leapYearCycleDates = createMultipleCycleDates(count: 6)
+        let expectedNextStartDate = getExpectedCycleDay(from: date("2024-04-21"), withAverageCycle: 30, fromDate: date("2024-04-27"))
+        
+        let sut = makeSUT()
+        leapYearCycleDates.forEach{ try? sut.logCycleDate($0) }
+
+        let nextCycleStartDay = try? sut.predictNextCycleStartDate(fromDate: date("2024-04-27"))
         
         #expect(nextCycleStartDay == expectedNextStartDate)
     }
@@ -270,11 +277,14 @@ struct CycleTrackerTests {
         CycleTracker()
     }
     
-    private func getExpectedCycleDay(from startDate: Date, withAverageCycle days: Int) -> Date? {
+    private func getExpectedCycleDay(from startDate: Date, withAverageCycle days: Int, fromDate date: Date = Date()) -> Date? {
+        
         var expectedNextStartDate = Calendar.current.date(byAdding: .day, value: days, to: startDate)
-        while let date = expectedNextStartDate, date < Date() {
-            expectedNextStartDate =  Calendar.current.date(byAdding: .day, value: days, to: date)
+        
+        while let predictedDate = expectedNextStartDate, predictedDate < date {
+            expectedNextStartDate =  Calendar.current.date(byAdding: .day, value: days, to: predictedDate)
         }
+        
         return expectedNextStartDate
     }
     
@@ -290,7 +300,7 @@ struct CycleTrackerTests {
             createCycleDate(startDate: date("2024-05-21"), endDate: date("2024-05-25")),
             createCycleDate(startDate: date("2024-06-20"), endDate: date("2024-06-24")),
         ]
-        
+        // 29, 30, 30, 29, 30, 30, 30    , 30, 30, 30, 30, 30, 30, 30, 30
         return Array(cycles.prefix(upTo: count))
     }
     

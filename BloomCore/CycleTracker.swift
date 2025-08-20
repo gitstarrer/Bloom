@@ -44,10 +44,11 @@ public class CycleTracker {
         }
         
         let totalDays = cycleDays.reduce(0, +)
-        return totalDays / cycleDays.count
+        let average = Double(totalDays) / Double(cycleDays.count)
+        return Int(average.rounded())
     }
     
-    public func predictNextCycleStartDate(fromCurrentDate currentDate: Date = Date()) throws -> Date {
+    public func predictNextCycleStartDate(fromDate date: Date = Date()) throws -> Date {
         guard let lastStartDate = cycles.last?.startDate else {
             throw CycleError.noDataAvailable
         }
@@ -56,8 +57,8 @@ public class CycleTracker {
         
         var predictedDate = Calendar.current.date(byAdding: .day, value: cycleLength, to: lastStartDate)
         
-        while let date = predictedDate, date < currentDate {
-            predictedDate =  Calendar.current.date(byAdding: .day, value: cycleLength, to: date)
+        while let predictedCycleDate = predictedDate, predictedCycleDate < date {
+            predictedDate =  Calendar.current.date(byAdding: .day, value: cycleLength, to: predictedCycleDate)
         }
         
         guard let nextCycleDate = predictedDate else {
