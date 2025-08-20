@@ -7,16 +7,22 @@
 
 import Foundation
 
-public struct Cycle: Equatable, Hashable {
+public struct Period: Equatable, Hashable {
     var startDate: Date
     var endDate: Date?
+    
+    var duration: Int {
+        guard let end = endDate else { return 0 }
+        let days = Calendar.current.dateComponents([.day], from: startDate, to: end).day ?? 0
+        return days + 1
+    }
     
     public init(startDate: Date, endDate: Date? = nil) {
         self.startDate = startDate
         self.endDate = endDate
     }
     
-    public static func == (lhs: Cycle, rhs: Cycle) -> Bool {
+    public static func == (lhs: Period, rhs: Period) -> Bool {
         lhs.startDate == rhs.startDate
     }
     

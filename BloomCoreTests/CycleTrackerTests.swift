@@ -77,7 +77,7 @@ struct CycleTrackerTests {
     @Test
     func test_logCycleDate_hasSortedAndUniqueDatesWhenMultipleEntriesAreLoggedWithDuplicateEntries() {
         let cycles = createMultipleCycleDates(count: 7)
-        let cyclesWithDuplicates: [Cycle] = cycles + cycles
+        let cyclesWithDuplicates: [Period] = cycles + cycles
         let sut = makeSUT()
         
         cyclesWithDuplicates.forEach { try? sut.logCycleDate($0) }
@@ -272,6 +272,25 @@ struct CycleTrackerTests {
         #expect(nextCycleStartDay == expectedNextStartDate)
     }
     
+    @Test
+    func test_calculateAveragePeriodLength_throwsErrorOnEmptyList() {
+        let sut = makeSUT()
+        #expect(throws: CycleError.notEnoughData, performing: {
+            try sut.calculateAveragePeriodLength()
+        })
+    }
+    
+    @Test
+    func test_calculateAveragePeriodLength_returnsPeriodLengthForSingleEntry() {
+        let cycles = createMultipleCycleDates(count: 1)
+        let sut = makeSUT()
+        try? sut.logCycleDate(cycles[0])
+        
+        let periodLength = try? sut.calculateAveragePeriodLength()
+        
+        #expect(periodLength == 5)
+    }
+    
     //Helpers
     private func makeSUT() -> CycleTracker {
         CycleTracker()
@@ -288,7 +307,7 @@ struct CycleTrackerTests {
         return expectedNextStartDate
     }
     
-    private func createMultipleCycleDates(count: Int) -> [Cycle] {
+    private func createMultipleCycleDates(count: Int) -> [Period] {
         let cycles = [
             createCycleDate(startDate: date("2023-11-25"), endDate: date("2023-11-29")),
             createCycleDate(startDate: date("2023-12-24"), endDate: date("2023-12-28")),
@@ -304,8 +323,8 @@ struct CycleTrackerTests {
         return Array(cycles.prefix(upTo: count))
     }
     
-    private func createCycleDate(startDate: Date, endDate: Date? = nil) -> Cycle {
-        Cycle(startDate: startDate, endDate: endDate)
+    private func createCycleDate(startDate: Date, endDate: Date? = nil) -> Period {
+        Period(startDate: startDate, endDate: endDate)
     }
     
     private func date(_ string: String) -> Date {

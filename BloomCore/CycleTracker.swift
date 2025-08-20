@@ -8,13 +8,13 @@
 import Foundation
 
 public class CycleTracker {
-    public var cycles: [Cycle] = []
+    public var cycles: [Period] = []
     
     public init() {}
     
     private var defaultCycleLength: Int = 28
     
-    public func logCycleDate(_ cycleDate: Cycle) throws {
+    public func logCycleDate(_ cycleDate: Period) throws {
         if let endDate = cycleDate.endDate, cycleDate.startDate > endDate {
             throw CycleError.invalidDateRange
         }
@@ -24,7 +24,7 @@ public class CycleTracker {
         cycles.sort { $0.startDate < $1.startDate }
     }
     
-    public func delete(cycleDate date: Cycle) {
+    public func delete(cycleDate date: Period) {
         cycles.removeAll(where: { $0.startDate == date.startDate })
     }
     
@@ -68,4 +68,11 @@ public class CycleTracker {
         return nextCycleDate
     }
 
+    public func calculateAveragePeriodLength() throws -> Int {
+        if cycles.isEmpty {
+            throw CycleError.notEnoughData
+        }
+        
+        return cycles[0].duration
+    }
 }
