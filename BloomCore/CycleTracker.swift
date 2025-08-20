@@ -8,30 +8,30 @@
 import Foundation
 
 public class CycleTracker {
-    public var cycles: [Period] = []
+    public var periods: [Period] = []
     
     public init() {}
     
     private var defaultCycleLength: Int = 28
     
-    public func logCycleDate(_ cycleDate: Period) throws {
-        if let endDate = cycleDate.endDate, cycleDate.startDate > endDate {
+    public func addPeriod(_ period: Period) throws {
+        if let endDate = period.endDate, period.startDate > endDate {
             throw CycleError.invalidDateRange
         }
         
-        cycles.removeAll { $0.startDate == cycleDate.startDate }
-        cycles.append(cycleDate)
-        cycles.sort { $0.startDate < $1.startDate }
+        periods.removeAll { $0.startDate == period.startDate }
+        periods.append(period)
+        periods.sort { $0.startDate < $1.startDate }
     }
     
-    public func delete(cycleDate date: Period) {
-        cycles.removeAll(where: { $0.startDate == date.startDate })
+    public func deletePeriod(cycleDate date: Period) {
+        periods.removeAll(where: { $0.startDate == date.startDate })
     }
     
-    public func calculateAverageCycleLength(maxRecentCycles: Int? = nil) -> Int {
-        guard cycles.count > 1 else { return defaultCycleLength }
+    public func getAverageCycleLength(maxRecentCycles: Int? = nil) -> Int {
+        guard periods.count > 1 else { return defaultCycleLength }
 
-        var sortedCycleDates = cycles.sorted { $0.startDate < $1.startDate }
+        var sortedCycleDates = periods.sorted { $0.startDate < $1.startDate }
         if let maxRecentCycles {
             sortedCycleDates = sortedCycleDates.suffix(maxRecentCycles)
         }
@@ -48,12 +48,12 @@ public class CycleTracker {
         return Int(average.rounded())
     }
     
-    public func predictNextCycleStartDate(fromDate date: Date = Date()) throws -> Date {
-        guard let lastStartDate = cycles.last?.startDate else {
+    public func predictNextPeriod(fromDate date: Date = Date()) throws -> Date {
+        guard let lastStartDate = periods.last?.startDate else {
             throw CycleError.notEnoughData
         }
         
-        let cycleLength = cycles.count > 1 ? calculateAverageCycleLength() : defaultCycleLength
+        let cycleLength = periods.count > 1 ? getAverageCycleLength() : defaultCycleLength
         
         var predictedDate = Calendar.current.date(byAdding: .day, value: cycleLength, to: lastStartDate)
         
@@ -68,11 +68,11 @@ public class CycleTracker {
         return nextCycleDate
     }
 
-    public func calculateAveragePeriodLength() throws -> Int {
-        guard !cycles.isEmpty else { throw CycleError.notEnoughData }
+    public func getAveragePeriodLength() throws -> Int {
+        guard !periods.isEmpty else { throw CycleError.notEnoughData }
         
-        let cumulativePeriodLength = cycles.map(\.duration).reduce(0, +)
-        let averagePeriodLength = Double(cumulativePeriodLength) / Double(cycles.count)
+        let cumulativePeriodLength = periods.map(\.duration).reduce(0, +)
+        let averagePeriodLength = Double(cumulativePeriodLength) / Double(periods.count)
         
         return Int(averagePeriodLength.rounded())
     }

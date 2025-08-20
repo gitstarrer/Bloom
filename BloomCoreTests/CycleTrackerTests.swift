@@ -16,9 +16,9 @@ struct CycleTrackerTests {
         let cycleDate = createCycleDate(startDate: date("2025-01-01"), endDate: nil)
         let sut = makeSUT()
         
-        try? sut.logCycleDate(cycleDate)
+        try? sut.addPeriod(cycleDate)
         
-        #expect(sut.cycles == [cycleDate])
+        #expect(sut.periods == [cycleDate])
     }
     
     @Test
@@ -27,7 +27,7 @@ struct CycleTrackerTests {
         let sut = makeSUT()
         
         #expect(throws: CycleError.invalidDateRange, performing: {
-            try sut.logCycleDate(cycleDate)
+            try sut.addPeriod(cycleDate)
         })
     }
 
@@ -36,9 +36,9 @@ struct CycleTrackerTests {
         let cycleDate = createMultipleCycleDates(count: 1)[0]
         let sut = makeSUT()
         
-        try? sut.logCycleDate(cycleDate)
+        try? sut.addPeriod(cycleDate)
         
-        #expect(sut.cycles == [cycleDate])
+        #expect(sut.periods == [cycleDate])
     }
     
     @Test
@@ -46,9 +46,9 @@ struct CycleTrackerTests {
         let cycles = createMultipleCycleDates(count: 2)
         let sut = makeSUT()
         
-        cycles.forEach { try? sut.logCycleDate($0) }
+        cycles.forEach { try? sut.addPeriod($0) }
         
-        #expect(sut.cycles == [cycles[0], cycles[1]])
+        #expect(sut.periods == [cycles[0], cycles[1]])
     }
     
     @Test
@@ -57,10 +57,10 @@ struct CycleTrackerTests {
         let updatedCycleDate = createCycleDate(startDate: date("2025-01-01"), endDate: date("2025-01-03"))
         let sut = makeSUT()
         
-        try? sut.logCycleDate(cycleDate)
-        try? sut.logCycleDate(updatedCycleDate)
+        try? sut.addPeriod(cycleDate)
+        try? sut.addPeriod(updatedCycleDate)
         
-        #expect(sut.cycles == [updatedCycleDate])
+        #expect(sut.periods == [updatedCycleDate])
     }
     
     @Test
@@ -69,9 +69,9 @@ struct CycleTrackerTests {
         let sut = makeSUT()
         let reversedCycles = cycles.reversed()
         
-        reversedCycles.forEach { try? sut.logCycleDate($0) }
+        reversedCycles.forEach { try? sut.addPeriod($0) }
         
-        #expect(sut.cycles == cycles)
+        #expect(sut.periods == cycles)
     }
     
     @Test
@@ -80,9 +80,9 @@ struct CycleTrackerTests {
         let cyclesWithDuplicates: [Period] = cycles + cycles
         let sut = makeSUT()
         
-        cyclesWithDuplicates.forEach { try? sut.logCycleDate($0) }
+        cyclesWithDuplicates.forEach { try? sut.addPeriod($0) }
         
-        #expect(sut.cycles == cycles)
+        #expect(sut.periods == cycles)
     }
 
     @Test
@@ -91,24 +91,24 @@ struct CycleTrackerTests {
         let updatedCycleDate = createCycleDate(startDate: date("2025-01-01"), endDate: date("2025-01-03"))
         let sut = makeSUT()
         
-        try? sut.logCycleDate(cycleDate)
-        try? sut.logCycleDate(updatedCycleDate)
+        try? sut.addPeriod(cycleDate)
+        try? sut.addPeriod(updatedCycleDate)
 
-        #expect(sut.cycles == [updatedCycleDate])
+        #expect(sut.periods == [updatedCycleDate])
     }
     
     @Test
     func test_logCycleDate_updatesCorrectDateAfterEditingWithMultipleEntries() {
         let cycles = createMultipleCycleDates(count: 7)
         let sut = makeSUT()
-        cycles.forEach { try? sut.logCycleDate($0) }
-        #expect(sut.cycles == cycles)
+        cycles.forEach { try? sut.addPeriod($0) }
+        #expect(sut.periods == cycles)
         
         let newCycleDate = createCycleDate(startDate: date("2024-02-22"), endDate: date("2024-02-25"))
-        try? sut.logCycleDate(newCycleDate)
+        try? sut.addPeriod(newCycleDate)
 
-        #expect(sut.cycles.count == cycles.count)
-        #expect(sut.cycles[3] == newCycleDate)
+        #expect(sut.periods.count == cycles.count)
+        #expect(sut.periods[3] == newCycleDate)
     }
     
     @Test
@@ -116,41 +116,41 @@ struct CycleTrackerTests {
         let sut = makeSUT()
         let cycleDate = createCycleDate(startDate: date("2025-02-27"), endDate: date("2025-03-03"))
         
-        try? sut.logCycleDate(cycleDate)
-        sut.delete(cycleDate: cycleDate)
+        try? sut.addPeriod(cycleDate)
+        sut.deletePeriod(cycleDate: cycleDate)
         
-        #expect(sut.cycles.isEmpty)
+        #expect(sut.periods.isEmpty)
     }
     
     @Test
     func test_deleteCycleDate_removesDateWhenCycleDatesHasMoreThanOneItem() {
         let sut = makeSUT()
         let cycleDates = createMultipleCycleDates(count: 3)
-        cycleDates.forEach { try? sut.logCycleDate($0) }
+        cycleDates.forEach { try? sut.addPeriod($0) }
         
-        sut.delete(cycleDate: cycleDates[1])
+        sut.deletePeriod(cycleDate: cycleDates[1])
         
-        #expect(sut.cycles == [cycleDates[0], cycleDates[2]])
+        #expect(sut.periods == [cycleDates[0], cycleDates[2]])
     }
     
     @Test
     func test_deleteCycleDate_removesUpdatedDateAfterUpdating() {
         let sut = makeSUT()
         let cycleDates = createMultipleCycleDates(count: 3)
-        cycleDates.forEach { try? sut.logCycleDate($0) }
+        cycleDates.forEach { try? sut.addPeriod($0) }
         let updatedCycleDate = createCycleDate(startDate: date("2023-12-24"), endDate: date("2023-12-25"))
-        try? sut.logCycleDate(updatedCycleDate)
+        try? sut.addPeriod(updatedCycleDate)
         
-        sut.delete(cycleDate: cycleDates[1])
+        sut.deletePeriod(cycleDate: cycleDates[1])
         
-        #expect(sut.cycles == [cycleDates[0], cycleDates[2]])
+        #expect(sut.periods == [cycleDates[0], cycleDates[2]])
     }
 
     @Test
     func test_calculateAverageCycleLength_returnsDefaultCycleLengthWhenCycleDatesIsEmpty() {
         let sut = makeSUT()
-        let averageCycleLength = sut.calculateAverageCycleLength()
-        #expect(sut.cycles == [])
+        let averageCycleLength = sut.getAverageCycleLength()
+        #expect(sut.periods == [])
         #expect(averageCycleLength == 28)
     }
     
@@ -159,26 +159,26 @@ struct CycleTrackerTests {
         let sut = CycleTracker()
         let cycles = createMultipleCycleDates(count: 1)
         
-        try? sut.logCycleDate(cycles[0])
+        try? sut.addPeriod(cycles[0])
         
-        #expect(sut.calculateAverageCycleLength() == 28)
+        #expect(sut.getAverageCycleLength() == 28)
     }
     
     @Test
     func test_calculateAverageCycleLength_returnsAverageCycleLengthWithTwoEntries() {
         let sut = CycleTracker()
         let cycles = createMultipleCycleDates(count: 2)
-        cycles.forEach{ try? sut.logCycleDate($0) }
-        #expect(sut.calculateAverageCycleLength() == 29)
+        cycles.forEach{ try? sut.addPeriod($0) }
+        #expect(sut.getAverageCycleLength() == 29)
     }
     
     @Test
     func test_calculateAverageCycleLength_returnsAverageCycleLengthWithMultipleEntries() {
         let sut = CycleTracker()
         let cycles = createMultipleCycleDates(count: 7)
-        cycles.forEach { try? sut.logCycleDate($0) }
+        cycles.forEach { try? sut.addPeriod($0) }
 
-        let average = sut.calculateAverageCycleLength()
+        let average = sut.getAverageCycleLength()
 
         #expect(average == 30)
     }
@@ -187,9 +187,9 @@ struct CycleTrackerTests {
     func test_calculateAverageCycleLength_returnsAverageCycleLengthWithMultipleEntriesForMaxRecentCycles() {
         let sut = CycleTracker()
         let cycles = createMultipleCycleDates(count: 7)
-        cycles.forEach { try? sut.logCycleDate($0) }
+        cycles.forEach { try? sut.addPeriod($0) }
 
-        let average = sut.calculateAverageCycleLength(maxRecentCycles: 2)
+        let average = sut.getAverageCycleLength(maxRecentCycles: 2)
 
         #expect(average == 30)
     }
@@ -198,7 +198,7 @@ struct CycleTrackerTests {
     func test_predictNextCycleStartDay_throwsErrorWhenNoDataAvailable() {
         let sut = makeSUT()
         #expect(throws: CycleError.notEnoughData, performing: {
-            try sut.predictNextCycleStartDate()
+            try sut.predictNextPeriod()
         })
     }
     
@@ -209,9 +209,9 @@ struct CycleTrackerTests {
         let expectedNextStartDate = getExpectedCycleDay(from: date("2023-11-25"), withAverageCycle: 28, fromDate: currentDate)
 
         let sut = makeSUT()
-        try? sut.logCycleDate(cycleDate)
+        try? sut.addPeriod(cycleDate)
         
-        let nextCycleStartDay = try? sut.predictNextCycleStartDate(fromDate: currentDate)
+        let nextCycleStartDay = try? sut.predictNextPeriod(fromDate: currentDate)
         
         #expect(nextCycleStartDay == expectedNextStartDate)
     }
@@ -223,9 +223,9 @@ struct CycleTrackerTests {
         let expectedNextStartDate = getExpectedCycleDay(from: date("2023-12-24"), withAverageCycle: 29, fromDate: currentDate)
         
         let sut = makeSUT()
-        cycleDates.forEach{ try? sut.logCycleDate($0) }
+        cycleDates.forEach{ try? sut.addPeriod($0) }
 
-        let nextCycleStartDay = try? sut.predictNextCycleStartDate(fromDate: currentDate)
+        let nextCycleStartDay = try? sut.predictNextPeriod(fromDate: currentDate)
         
         #expect(nextCycleStartDay == expectedNextStartDate)
     }
@@ -236,9 +236,9 @@ struct CycleTrackerTests {
         let expectedNextStartDate = getExpectedCycleDay(from: date("2024-05-21"), withAverageCycle: 30)
         
         let sut = makeSUT()
-        cycleDates.forEach{ try? sut.logCycleDate($0) }
+        cycleDates.forEach{ try? sut.addPeriod($0) }
 
-        let nextCycleStartDay = try? sut.predictNextCycleStartDate()
+        let nextCycleStartDay = try? sut.predictNextPeriod()
         
         #expect(nextCycleStartDay == expectedNextStartDate)
     }
@@ -249,12 +249,12 @@ struct CycleTrackerTests {
         let currentDate: Date = date("2024-06-01")
         let expectedNextStartDate = getExpectedCycleDay(from: date("2023-12-24"), withAverageCycle: 29, fromDate: currentDate)
         let sut = makeSUT()
-        cycleDates.forEach{ try? sut.logCycleDate($0) }
-        sut.delete(cycleDate: cycleDates[2])
-        sut.delete(cycleDate: cycleDates[3])
-        sut.delete(cycleDate: cycleDates[4])
+        cycleDates.forEach{ try? sut.addPeriod($0) }
+        sut.deletePeriod(cycleDate: cycleDates[2])
+        sut.deletePeriod(cycleDate: cycleDates[3])
+        sut.deletePeriod(cycleDate: cycleDates[4])
         
-        let nextCycleStartDay = try? sut.predictNextCycleStartDate(fromDate: currentDate)
+        let nextCycleStartDay = try? sut.predictNextPeriod(fromDate: currentDate)
         
         #expect(nextCycleStartDay == expectedNextStartDate)
     }
@@ -265,9 +265,9 @@ struct CycleTrackerTests {
         let expectedNextStartDate = getExpectedCycleDay(from: date("2024-04-21"), withAverageCycle: 30, fromDate: date("2024-04-27"))
         
         let sut = makeSUT()
-        leapYearCycleDates.forEach{ try? sut.logCycleDate($0) }
+        leapYearCycleDates.forEach{ try? sut.addPeriod($0) }
 
-        let nextCycleStartDay = try? sut.predictNextCycleStartDate(fromDate: date("2024-04-27"))
+        let nextCycleStartDay = try? sut.predictNextPeriod(fromDate: date("2024-04-27"))
         
         #expect(nextCycleStartDay == expectedNextStartDate)
     }
@@ -276,7 +276,7 @@ struct CycleTrackerTests {
     func test_calculateAveragePeriodLength_throwsErrorOnEmptyList() {
         let sut = makeSUT()
         #expect(throws: CycleError.notEnoughData, performing: {
-            try sut.calculateAveragePeriodLength()
+            try sut.getAveragePeriodLength()
         })
     }
     
@@ -285,9 +285,9 @@ struct CycleTrackerTests {
         let date = Date()
         let period = Period(startDate: date, endDate: date)
         let sut = makeSUT()
-        try? sut.logCycleDate(period)
+        try? sut.addPeriod(period)
         
-        let averagePeriodLength = try? sut.calculateAveragePeriodLength()
+        let averagePeriodLength = try? sut.getAveragePeriodLength()
         
         #expect(averagePeriodLength == 1)
     }
@@ -296,9 +296,9 @@ struct CycleTrackerTests {
     func test_calculateAveragePeriodLength_returnsDefaultForOngoingPeriod() {
         let period = Period(startDate: Date())
         let sut = makeSUT()
-        try? sut.logCycleDate(period)
+        try? sut.addPeriod(period)
         
-        let averagePeriodLength = try? sut.calculateAveragePeriodLength()
+        let averagePeriodLength = try? sut.getAveragePeriodLength()
         
         #expect(averagePeriodLength == 5)
     }
@@ -307,9 +307,9 @@ struct CycleTrackerTests {
     func test_calculateAveragePeriodLength_returnsPeriodLengthForSingleEntry() {
         let cycles = createMultipleCycleDates(count: 1)
         let sut = makeSUT()
-        try? sut.logCycleDate(cycles[0])
+        try? sut.addPeriod(cycles[0])
         
-        let averagePeriodLength = try? sut.calculateAveragePeriodLength()
+        let averagePeriodLength = try? sut.getAveragePeriodLength()
         
         #expect(averagePeriodLength == 2)
     }
@@ -320,10 +320,10 @@ struct CycleTrackerTests {
         let ended = Period(startDate: date("2025-01-01"), endDate: date("2025-01-03"))
         let ongoing = Period(startDate: date("2025-02-01"), endDate: nil)
         
-        try? sut.logCycleDate(ended)
-        try? sut.logCycleDate(ongoing)
+        try? sut.addPeriod(ended)
+        try? sut.addPeriod(ongoing)
         
-        let average = try? sut.calculateAveragePeriodLength()
+        let average = try? sut.getAveragePeriodLength()
         
         #expect(average == 4)
     }
@@ -333,10 +333,10 @@ struct CycleTrackerTests {
         let sut = makeSUT()
         (1...3).forEach { i in
             let ongoing = Period(startDate: Date().addingTimeInterval(Double(i) * -86400), endDate: nil)
-            try? sut.logCycleDate(ongoing)
+            try? sut.addPeriod(ongoing)
         }
         
-        let average = try? sut.calculateAveragePeriodLength()
+        let average = try? sut.getAveragePeriodLength()
         
         #expect(average == 5)
     }
@@ -345,9 +345,9 @@ struct CycleTrackerTests {
     func test_calculateAveragePeriodLength_returnsPeriodLengthForMultipleEntries() {
         let cycles = createMultipleCycleDates(count: 7)
         let sut = makeSUT()
-        cycles.forEach{ try? sut.logCycleDate($0) }
+        cycles.forEach{ try? sut.addPeriod($0) }
         
-        let averagePeriodLength = try? sut.calculateAveragePeriodLength()
+        let averagePeriodLength = try? sut.getAveragePeriodLength()
         
         #expect(averagePeriodLength == 3)
     }
