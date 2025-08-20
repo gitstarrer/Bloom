@@ -69,10 +69,11 @@ public class CycleTracker {
     }
 
     public func calculateAveragePeriodLength() throws -> Int {
-        if cycles.isEmpty {
-            throw CycleError.notEnoughData
-        }
+        guard !cycles.isEmpty else { throw CycleError.notEnoughData }
         
-        return cycles[0].duration
+        let cumulativePeriodLength = cycles.map(\.duration).reduce(0, +)
+        let averagePeriodLength = Double(cumulativePeriodLength) / Double(cycles.count)
+        
+        return Int(averagePeriodLength.rounded())
     }
 }

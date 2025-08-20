@@ -281,14 +281,75 @@ struct CycleTrackerTests {
     }
     
     @Test
+    func test_duration_returnsOneWhenStartAndEndSameDay() {
+        let date = Date()
+        let period = Period(startDate: date, endDate: date)
+        let sut = makeSUT()
+        try? sut.logCycleDate(period)
+        
+        let averagePeriodLength = try? sut.calculateAveragePeriodLength()
+        
+        #expect(averagePeriodLength == 1)
+    }
+    
+    @Test
+    func test_calculateAveragePeriodLength_returnsDefaultForOngoingPeriod() {
+        let period = Period(startDate: Date())
+        let sut = makeSUT()
+        try? sut.logCycleDate(period)
+        
+        let averagePeriodLength = try? sut.calculateAveragePeriodLength()
+        
+        #expect(averagePeriodLength == 5)
+    }
+    
+    @Test
     func test_calculateAveragePeriodLength_returnsPeriodLengthForSingleEntry() {
         let cycles = createMultipleCycleDates(count: 1)
         let sut = makeSUT()
         try? sut.logCycleDate(cycles[0])
         
-        let periodLength = try? sut.calculateAveragePeriodLength()
+        let averagePeriodLength = try? sut.calculateAveragePeriodLength()
         
-        #expect(periodLength == 5)
+        #expect(averagePeriodLength == 2)
+    }
+    
+    @Test
+    func test_calculateAveragePeriodLength_returnsAveragePeriodLengthWithOneOngoingPeriod() {
+        let sut = makeSUT()
+        let ended = Period(startDate: date("2025-01-01"), endDate: date("2025-01-03"))
+        let ongoing = Period(startDate: date("2025-02-01"), endDate: nil)
+        
+        try? sut.logCycleDate(ended)
+        try? sut.logCycleDate(ongoing)
+        
+        let average = try? sut.calculateAveragePeriodLength()
+        
+        #expect(average == 4)
+    }
+    
+    @Test
+    func test_calculateAveragePeriodLength_allOngoing() {
+        let sut = makeSUT()
+        (1...3).forEach { i in
+            let ongoing = Period(startDate: Date().addingTimeInterval(Double(i) * -86400), endDate: nil)
+            try? sut.logCycleDate(ongoing)
+        }
+        
+        let average = try? sut.calculateAveragePeriodLength()
+        
+        #expect(average == 5)
+    }
+    
+    @Test
+    func test_calculateAveragePeriodLength_returnsPeriodLengthForMultipleEntries() {
+        let cycles = createMultipleCycleDates(count: 7)
+        let sut = makeSUT()
+        cycles.forEach{ try? sut.logCycleDate($0) }
+        
+        let averagePeriodLength = try? sut.calculateAveragePeriodLength()
+        
+        #expect(averagePeriodLength == 3)
     }
     
     //Helpers
@@ -309,14 +370,14 @@ struct CycleTrackerTests {
     
     private func createMultipleCycleDates(count: Int) -> [Period] {
         let cycles = [
-            createCycleDate(startDate: date("2023-11-25"), endDate: date("2023-11-29")),
-            createCycleDate(startDate: date("2023-12-24"), endDate: date("2023-12-28")),
+            createCycleDate(startDate: date("2023-11-25"), endDate: date("2023-11-26")),
+            createCycleDate(startDate: date("2023-12-24"), endDate: date("2023-12-25")),
             
             createCycleDate(startDate: date("2024-01-23"), endDate: date("2024-01-27")),
-            createCycleDate(startDate: date("2024-02-22"), endDate: date("2024-02-26")),
-            createCycleDate(startDate: date("2024-03-22"), endDate: date("2024-03-26")),
-            createCycleDate(startDate: date("2024-04-21"), endDate: date("2024-04-25")),
-            createCycleDate(startDate: date("2024-05-21"), endDate: date("2024-05-25")),
+            createCycleDate(startDate: date("2024-02-22"), endDate: date("2024-02-23")),
+            createCycleDate(startDate: date("2024-03-22"), endDate: date("2024-03-23")),
+            createCycleDate(startDate: date("2024-04-21"), endDate: date("2024-04-23")),
+            createCycleDate(startDate: date("2024-05-21"), endDate: date("2024-05-22")),
             createCycleDate(startDate: date("2024-06-20"), endDate: date("2024-06-24")),
         ]
         // 29, 30, 30, 29, 30, 30, 30    , 30, 30, 30, 30, 30, 30, 30, 30
