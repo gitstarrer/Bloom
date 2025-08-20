@@ -50,7 +50,7 @@ public class CycleTracker {
     
     public func predictNextCycleStartDate(fromDate date: Date = Date()) throws -> Date {
         guard let lastStartDate = cycles.last?.startDate else {
-            throw CycleError.noDataAvailable
+            throw CycleError.notEnoughData
         }
         
         let cycleLength = cycles.count > 1 ? calculateAverageCycleLength() : defaultCycleLength
@@ -62,7 +62,7 @@ public class CycleTracker {
         }
         
         guard let nextCycleDate = predictedDate else {
-            throw CycleError.noDataAvailable
+            throw CycleError.notEnoughData
         }
         
         return nextCycleDate

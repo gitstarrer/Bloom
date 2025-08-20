@@ -27,5 +27,5 @@ public struct Cycle: Equatable, Hashable {
 
 public enum CycleError: Error {
     case invalidDateRange
-    case noDataAvailable
+    case notEnoughData
 }
