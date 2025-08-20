@@ -7,7 +7,8 @@
 
 import Foundation
 
-public struct Period: Equatable, Hashable {
+public struct Period: Equatable, Hashable, Identifiable, Codable {
+    public let id: UUID
     var startDate: Date
     var endDate: Date?
     
@@ -17,17 +18,10 @@ public struct Period: Equatable, Hashable {
         return days + 1
     }
     
-    public init(startDate: Date, endDate: Date? = nil) {
+    public init(id: UUID = UUID(), startDate: Date, endDate: Date? = nil) {
+        self.id = id
         self.startDate = startDate
         self.endDate = endDate
-    }
-    
-    public static func == (lhs: Period, rhs: Period) -> Bool {
-        lhs.startDate == rhs.startDate
-    }
-    
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(startDate)
     }
 }
 
