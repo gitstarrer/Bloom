@@ -280,15 +280,15 @@ struct CycleTrackerTests {
     
     private func createMultipleCycleDates(count: Int) -> [Cycle] {
         let cycles = [
-            createCycleDate(startDate: date("2025-01-01"), endDate: date("2025-01-05")),
-            createCycleDate(startDate: date("2025-01-31"), endDate: date("2025-02-02")),
-            createCycleDate(startDate: date("2025-02-27"), endDate: date("2025-03-03")),
-            createCycleDate(startDate: date("2025-03-28"), endDate: date("2025-04-01")),
-            createCycleDate(startDate: date("2025-04-26"), endDate: date("2025-04-30")),
-            createCycleDate(startDate: date("2025-05-26"), endDate: date("2025-05-30")),
-            createCycleDate(startDate: date("2025-06-25"), endDate: date("2025-06-29")),
-            createCycleDate(startDate: date("2025-07-24"), endDate: date("2025-07-28")),
-            createCycleDate(startDate: date("2025-08-23"), endDate: date("2025-08-27"))
+            createCycleDate(startDate: date("2023-11-25"), endDate: date("2023-11-29")),
+            createCycleDate(startDate: date("2023-12-24"), endDate: date("2023-12-28")),
+            
+            createCycleDate(startDate: date("2024-01-23"), endDate: date("2024-01-27")),
+            createCycleDate(startDate: date("2024-02-22"), endDate: date("2024-02-26")),
+            createCycleDate(startDate: date("2024-03-22"), endDate: date("2024-03-26")),
+            createCycleDate(startDate: date("2024-04-21"), endDate: date("2024-04-25")),
+            createCycleDate(startDate: date("2024-05-21"), endDate: date("2024-05-25")),
+            createCycleDate(startDate: date("2024-06-20"), endDate: date("2024-06-24")),
         ]
         
         return Array(cycles.prefix(upTo: count))
