@@ -9,6 +9,18 @@
 /* Begin PBXBuildFile section */
 		F19C5DF42E5621CA00D72A5A /* BloomCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19CEA4F2E536FE600D1FBBF /* BloomCore.framework */; };
 		F19C5DFE2E5703FF00D72A5A /* BloomStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19C5DD82E5615DB00D72A5A /* BloomStorage.framework */; };
+		F19C5E092E5717C100D72A5A /* UserDefaultsPeriodStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5E042E5717C100D72A5A /* UserDefaultsPeriodStore.swift */; };
+		F19C5E0A2E5717C100D72A5A /* PeriodStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5E032E5717C100D72A5A /* PeriodStore.swift */; };
+		F19C5E0B2E5717C100D72A5A /* PeriodRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5E022E5717C100D72A5A /* PeriodRepository.swift */; };
+		F19C5E102E5717C600D72A5A /* BloomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5E0D2E5717C600D72A5A /* BloomApp.swift */; };
+		F19C5E112E5717C600D72A5A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5E0E2E5717C600D72A5A /* ContentView.swift */; };
+		F19C5E122E5717C600D72A5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F19C5E0C2E5717C600D72A5A /* Assets.xcassets */; };
+		F19C5E162E5717C900D72A5A /* CycleTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5E132E5717C900D72A5A /* CycleTracker.swift */; };
+		F19C5E172E5717C900D72A5A /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5E142E5717C900D72A5A /* Period.swift */; };
+		F19C5E1A2E5717CC00D72A5A /* CycleTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5E182E5717CC00D72A5A /* CycleTrackerTests.swift */; };
+		F19C5E1F2E57186B00D72A5A /* UserDefaultsPeriodStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5E1D2E57186B00D72A5A /* UserDefaultsPeriodStoreTests.swift */; };
+		F19C5E222E57195F00D72A5A /* PeriodRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5E212E57195F00D72A5A /* PeriodRepositoryTests.swift */; };
+		F19C5E242E571CFE00D72A5A /* PrimaryPeriodRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5E232E571CFE00D72A5A /* PrimaryPeriodRepository.swift */; };
 		F19CEA582E536FE600D1FBBF /* BloomCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19CEA4F2E536FE600D1FBBF /* BloomCore.framework */; };
 		F19CEA622E536FE600D1FBBF /* BloomCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19CEA4F2E536FE600D1FBBF /* BloomCore.framework */; };
 		F19CEA632E536FE600D1FBBF /* BloomCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F19CEA4F2E536FE600D1FBBF /* BloomCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -69,61 +81,22 @@
 /* Begin PBXFileReference section */
 		F19C5DD82E5615DB00D72A5A /* BloomStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BloomStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F19C5DE02E5615DB00D72A5A /* BloomStorageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BloomStorageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F19C5E022E5717C100D72A5A /* PeriodRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodRepository.swift; sourceTree = "<group>"; };
+		F19C5E032E5717C100D72A5A /* PeriodStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodStore.swift; sourceTree = "<group>"; };
+		F19C5E042E5717C100D72A5A /* UserDefaultsPeriodStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsPeriodStore.swift; sourceTree = "<group>"; };
+		F19C5E0C2E5717C600D72A5A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F19C5E0D2E5717C600D72A5A /* BloomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloomApp.swift; sourceTree = "<group>"; };
+		F19C5E0E2E5717C600D72A5A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F19C5E132E5717C900D72A5A /* CycleTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleTracker.swift; sourceTree = "<group>"; };
+		F19C5E142E5717C900D72A5A /* Period.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
+		F19C5E182E5717CC00D72A5A /* CycleTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleTrackerTests.swift; sourceTree = "<group>"; };
+		F19C5E1D2E57186B00D72A5A /* UserDefaultsPeriodStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsPeriodStoreTests.swift; sourceTree = "<group>"; };
+		F19C5E212E57195F00D72A5A /* PeriodRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodRepositoryTests.swift; sourceTree = "<group>"; };
+		F19C5E232E571CFE00D72A5A /* PrimaryPeriodRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryPeriodRepository.swift; sourceTree = "<group>"; };
 		F19CEA222E53692000D1FBBF /* Bloom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bloom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F19CEA4F2E536FE600D1FBBF /* BloomCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BloomCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F19CEA572E536FE600D1FBBF /* BloomCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BloomCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		F19C5DEF2E56188A00D72A5A /* Exceptions for "BloomStorage" folder in "BloomCore" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				PeriodStore.swift,
-				UserDefaultsPeriodStore.swift,
-			);
-			target = F19CEA4E2E536FE600D1FBBF /* BloomCore */;
-		};
-		F19C5DF02E56188A00D72A5A /* Exceptions for "BloomStorage" folder in "BloomStorage" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				PeriodStore.swift,
-				UserDefaultsPeriodStore.swift,
-			);
-			target = F19C5DD72E5615DB00D72A5A /* BloomStorage */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		F19C5DD92E5615DB00D72A5A /* BloomStorage */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				F19C5DEF2E56188A00D72A5A /* Exceptions for "BloomStorage" folder in "BloomCore" target */,
-				F19C5DF02E56188A00D72A5A /* Exceptions for "BloomStorage" folder in "BloomStorage" target */,
-			);
-			path = BloomStorage;
-			sourceTree = "<group>";
-		};
-		F19C5DE42E5615DB00D72A5A /* BloomStorageTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = BloomStorageTests;
-			sourceTree = "<group>";
-		};
-		F19CEA242E53692000D1FBBF /* Bloom */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Bloom;
-			sourceTree = "<group>";
-		};
-		F19CEA502E536FE600D1FBBF /* BloomCore */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = BloomCore;
-			sourceTree = "<group>";
-		};
-		F19CEA5D2E536FE600D1FBBF /* BloomCoreTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = BloomCoreTests;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		F19C5DD52E5615DB00D72A5A /* Frameworks */ = {
@@ -175,14 +148,85 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F19C5E052E5717C100D72A5A /* BloomStorage */ = {
+			isa = PBXGroup;
+			children = (
+				F19C5E1B2E5717D100D72A5A /* Repository */,
+				F19C5E1C2E5717E900D72A5A /* LocalStore */,
+			);
+			path = BloomStorage;
+			sourceTree = "<group>";
+		};
+		F19C5E0F2E5717C600D72A5A /* Bloom */ = {
+			isa = PBXGroup;
+			children = (
+				F19C5E0C2E5717C600D72A5A /* Assets.xcassets */,
+				F19C5E0D2E5717C600D72A5A /* BloomApp.swift */,
+				F19C5E0E2E5717C600D72A5A /* ContentView.swift */,
+			);
+			path = Bloom;
+			sourceTree = "<group>";
+		};
+		F19C5E152E5717C900D72A5A /* BloomCore */ = {
+			isa = PBXGroup;
+			children = (
+				F19C5E132E5717C900D72A5A /* CycleTracker.swift */,
+				F19C5E142E5717C900D72A5A /* Period.swift */,
+			);
+			path = BloomCore;
+			sourceTree = "<group>";
+		};
+		F19C5E192E5717CC00D72A5A /* BloomCoreTests */ = {
+			isa = PBXGroup;
+			children = (
+				F19C5E182E5717CC00D72A5A /* CycleTrackerTests.swift */,
+			);
+			path = BloomCoreTests;
+			sourceTree = "<group>";
+		};
+		F19C5E1B2E5717D100D72A5A /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				F19C5E232E571CFE00D72A5A /* PrimaryPeriodRepository.swift */,
+				F19C5E022E5717C100D72A5A /* PeriodRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		F19C5E1C2E5717E900D72A5A /* LocalStore */ = {
+			isa = PBXGroup;
+			children = (
+				F19C5E032E5717C100D72A5A /* PeriodStore.swift */,
+				F19C5E042E5717C100D72A5A /* UserDefaultsPeriodStore.swift */,
+			);
+			path = LocalStore;
+			sourceTree = "<group>";
+		};
+		F19C5E1E2E57186B00D72A5A /* BloomStorageTests */ = {
+			isa = PBXGroup;
+			children = (
+				F19C5E212E57195F00D72A5A /* PeriodRepositoryTests.swift */,
+				F19C5E202E57188200D72A5A /* LocalStoreTests */,
+			);
+			path = BloomStorageTests;
+			sourceTree = "<group>";
+		};
+		F19C5E202E57188200D72A5A /* LocalStoreTests */ = {
+			isa = PBXGroup;
+			children = (
+				F19C5E1D2E57186B00D72A5A /* UserDefaultsPeriodStoreTests.swift */,
+			);
+			path = LocalStoreTests;
+			sourceTree = "<group>";
+		};
 		F19CEA192E53692000D1FBBF = {
 			isa = PBXGroup;
 			children = (
-				F19CEA242E53692000D1FBBF /* Bloom */,
-				F19CEA502E536FE600D1FBBF /* BloomCore */,
-				F19CEA5D2E536FE600D1FBBF /* BloomCoreTests */,
-				F19C5DD92E5615DB00D72A5A /* BloomStorage */,
-				F19C5DE42E5615DB00D72A5A /* BloomStorageTests */,
+				F19C5E0F2E5717C600D72A5A /* Bloom */,
+				F19C5E152E5717C900D72A5A /* BloomCore */,
+				F19C5E192E5717CC00D72A5A /* BloomCoreTests */,
+				F19C5E052E5717C100D72A5A /* BloomStorage */,
+				F19C5E1E2E57186B00D72A5A /* BloomStorageTests */,
 				F19C5DF32E5621CA00D72A5A /* Frameworks */,
 				F19CEA232E53692000D1FBBF /* Products */,
 			);
@@ -233,9 +277,6 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				F19C5DD92E5615DB00D72A5A /* BloomStorage */,
-			);
 			name = BloomStorage;
 			packageProductDependencies = (
 			);
@@ -256,9 +297,6 @@
 			dependencies = (
 				F19C5DE32E5615DB00D72A5A /* PBXTargetDependency */,
 				F19C5DF72E5621CA00D72A5A /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				F19C5DE42E5615DB00D72A5A /* BloomStorageTests */,
 			);
 			name = BloomStorageTests;
 			packageProductDependencies = (
@@ -281,9 +319,6 @@
 			dependencies = (
 				F19CEA612E536FE600D1FBBF /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				F19CEA242E53692000D1FBBF /* Bloom */,
-			);
 			name = Bloom;
 			packageProductDependencies = (
 			);
@@ -303,9 +338,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				F19CEA502E536FE600D1FBBF /* BloomCore */,
 			);
 			name = BloomCore;
 			packageProductDependencies = (
@@ -327,9 +359,6 @@
 			dependencies = (
 				F19CEA5A2E536FE600D1FBBF /* PBXTargetDependency */,
 				F19CEA5C2E536FE600D1FBBF /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				F19CEA5D2E536FE600D1FBBF /* BloomCoreTests */,
 			);
 			name = BloomCoreTests;
 			packageProductDependencies = (
@@ -407,6 +436,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F19C5E122E5717C600D72A5A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,6 +468,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F19C5E222E57195F00D72A5A /* PeriodRepositoryTests.swift in Sources */,
+				F19C5E1F2E57186B00D72A5A /* UserDefaultsPeriodStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,6 +477,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F19C5E102E5717C600D72A5A /* BloomApp.swift in Sources */,
+				F19C5E112E5717C600D72A5A /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,6 +486,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F19C5E092E5717C100D72A5A /* UserDefaultsPeriodStore.swift in Sources */,
+				F19C5E0A2E5717C100D72A5A /* PeriodStore.swift in Sources */,
+				F19C5E0B2E5717C100D72A5A /* PeriodRepository.swift in Sources */,
+				F19C5E162E5717C900D72A5A /* CycleTracker.swift in Sources */,
+				F19C5E172E5717C900D72A5A /* Period.swift in Sources */,
+				F19C5E242E571CFE00D72A5A /* PrimaryPeriodRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,6 +499,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F19C5E1A2E5717CC00D72A5A /* CycleTrackerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
