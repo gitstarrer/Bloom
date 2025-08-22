@@ -52,9 +52,50 @@ final class CycleOverviewViewModelTests: XCTestCase {
         XCTAssertEqual(sut.ovulationDateText, "Ovulation: 22 Aug 2025")
     }
     
+    func test_loadData_handlesPredictNextPeriodError() {
+        let service = MockPeriodService(periods: [.init(startDate: date("2025-08-21"))])
+        service.shouldThrowOnPredictNextPeriod = true
+        let sut = CycleOverviewViewModel(periodService: service)
+        
+        sut.loadData()
+        
+        XCTAssertEqual(sut.nextPeriodText, "")
+    }
+    
+    func test_loadData_handlesFertileWindowError() {
+        let service = MockPeriodService(periods: [.init(startDate: date("2025-08-21"))])
+        service.shouldThrowOnFertileWindow = true
+        let sut = CycleOverviewViewModel(periodService: service)
+        
+        sut.loadData()
+        
+        XCTAssertEqual(sut.fertileWindowText, "")
+    }
+    
+    func test_loadData_handlesAveragePeriodLengthError() {
+        let service = MockPeriodService(periods: [.init(startDate: date("2025-08-21"))])
+        service.shouldThrowOnAveragePeriodLength = true
+        let sut = CycleOverviewViewModel(periodService: service)
+        
+        sut.loadData()
+        
+        XCTAssertEqual(sut.averagePeriodLengthText, "")
+    }
+    
+    func test_loadData_handlesOvulationDateError() {
+        let service = MockPeriodService(periods: [.init(startDate: date("2025-08-21"))])
+        service.shouldThrowOnOvulationDate = true
+        let sut = CycleOverviewViewModel(periodService: service)
+        
+        sut.loadData()
+        
+        XCTAssertEqual(sut.ovulationDateText, "")
+    }
+    
+    
     //Helpers
     func makeSUT(periods: [BloomCore.Period] = []) -> CycleOverviewViewModel {
-        return try! CycleOverviewViewModel(
+        return CycleOverviewViewModel(
             periodService: MockPeriodService(periods: periods)
         )
     }
@@ -69,25 +110,24 @@ final class CycleOverviewViewModelTests: XCTestCase {
     class MockPeriodService: PeriodOverviewProtocol {
         var periods: [BloomCore.Period]
         
+        var shouldThrowOnPredictNextPeriod = false
+        var shouldThrowOnFertileWindow = false
+        var shouldThrowOnAveragePeriodLength = false
+        var shouldThrowOnOvulationDate = false
+        
         init(periods: [BloomCore.Period]) {
             self.periods = periods
-        }
-        
-        func addPeriod(_ period: BloomCore.Period) async throws {
-            periods.append(period)
-        }
-        
-        func deletePeriod(_ period: BloomCore.Period) async throws {
-            periods.removeAll(where: { $0 == period })
         }
         
         func getAllPeriods() -> [BloomCore.Period] { periods }
         
         func predictNextPeriod(fromDate date: Date) throws -> Date {
+            if shouldThrowOnPredictNextPeriod { throw NSError(domain: "test", code: 1) }
             return Calendar.current.date(byAdding: .day, value: 28, to: date) ?? Date()
         }
         
         func getFertileWindow(forDate currentDate: Date) throws -> (start: Date, end: Date) {
+            if shouldThrowOnFertileWindow { throw NSError(domain: "test", code: 2) }
             let startDate = Calendar.current.date(byAdding: .day, value: -5, to: currentDate) ?? Date()
             let endDate = Calendar.current.date(byAdding: .day, value: 5, to: currentDate) ?? Date()
             return (start: startDate, end: endDate)
@@ -95,9 +135,15 @@ final class CycleOverviewViewModelTests: XCTestCase {
         
         func getAverageCycleLength(maxRecentCycles: Int?) -> Int { 23 }
         
-        func getAveragePeriodLength() throws -> Int { 8 }
+        func getAveragePeriodLength() throws -> Int {
+            if shouldThrowOnAveragePeriodLength { throw NSError(domain: "test", code: 3) }
+            return 8
+        }
         
-        func getOvulationDate(forDate currentDate: Date) throws -> Date { Date() }
+        func getOvulationDate(forDate currentDate: Date) throws -> Date {
+            if shouldThrowOnOvulationDate { throw NSError(domain: "test", code: 4) }
+            return Date()
+        }
     }
 }
 

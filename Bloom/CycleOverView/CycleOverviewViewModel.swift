@@ -26,28 +26,28 @@ class CycleOverviewViewModel: ObservableObject {
         periodList.last
     }
     
-    init(periodService: PeriodOverviewProtocol) throws {
+    init(periodService: PeriodOverviewProtocol) {
         self.periodService = periodService
         loadData()
-        try setupTexts()
+        setupTexts()
     }
     
     func loadData() {
         periodList = periodService.getAllPeriods()
     }
     
-    func setupTexts(withCurrentDate currentDate: Date = Date()) throws {
+    func setupTexts(withCurrentDate currentDate: Date = Date()) {
         if let lastPeriod = lastPeriod {
             let startDate = lastPeriod.getDates().startDate
             setLastPeriodText(withDate: startDate)
             setCycleDayText(withDate: startDate, fromDate: currentDate)
-            try setNextPeriodText(withDate: startDate, fromDate: currentDate)
-            try setFertileWindowText(forDate: startDate)
-            try setOvulationDateText(forDate: startDate)
+            try? setNextPeriodText(withDate: startDate, fromDate: currentDate)
+            try? setFertileWindowText(forDate: startDate)
+            try? setOvulationDateText(forDate: startDate)
         }
         
         setAverageCycleLengthText(withMaxRecentCycles: nil)
-        try setAveragePeriodLengthText()
+        try? setAveragePeriodLengthText()
     }
     
     func setLastPeriodText(withDate date: Date) {
