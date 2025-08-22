@@ -23,6 +23,10 @@ public struct Period: Equatable, Hashable, Identifiable, Codable {
         self.startDate = startDate
         self.endDate = endDate
     }
+    
+    public func getDates() -> (startDate: Date, endDate: Date?) {
+        (startDate: startDate, endDate: endDate)
+    }
 }
 
 public enum CycleError: Error {

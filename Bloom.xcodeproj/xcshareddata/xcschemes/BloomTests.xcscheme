@@ -9,24 +9,19 @@
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
-      <TestPlans>
-         <TestPlanReference
-            reference = "container:BloomCoreTests.xctestplan"
-            default = "YES">
-         </TestPlanReference>
-      </TestPlans>
+      selectedDebuggerIdentifier = ""
+      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      shouldAutocreateTestPlan = "YES">
       <Testables>
          <TestableReference
             skipped = "NO"
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F19CEA562E536FE600D1FBBF"
-               BuildableName = "BloomCoreTests.xctest"
-               BlueprintName = "BloomCoreTests"
+               BlueprintIdentifier = "F19C5A762E584CB900DAE235"
+               BuildableName = "BloomTests.xctest"
+               BlueprintName = "BloomTests"
                ReferencedContainer = "container:Bloom.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -36,6 +31,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      disableMainThreadChecker = "YES"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"

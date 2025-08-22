@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F19C5A852E584DAA00DAE235 /* CycleOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5A842E584DAA00DAE235 /* CycleOverviewViewModel.swift */; };
+		F19C5A872E58502100DAE235 /* PredictionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5A862E58502100DAE235 /* PredictionServiceProtocol.swift */; };
+		F19C5A882E5850C400DAE235 /* BloomCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19CEA4F2E536FE600D1FBBF /* BloomCore.framework */; };
+		F19C5A892E5850C400DAE235 /* BloomCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F19CEA4F2E536FE600D1FBBF /* BloomCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F19C5A8D2E5850CA00DAE235 /* BloomApplication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19C5E972E576F0600D72A5A /* BloomApplication.framework */; };
+		F19C5A8E2E5850CA00DAE235 /* BloomApplication.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F19C5E972E576F0600D72A5A /* BloomApplication.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F19C5A912E5850CF00DAE235 /* BloomStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19C5DD82E5615DB00D72A5A /* BloomStorage.framework */; };
+		F19C5A922E5850CF00DAE235 /* BloomStorage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F19C5DD82E5615DB00D72A5A /* BloomStorage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F19C5A952E58518000DAE235 /* BloomCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19CEA4F2E536FE600D1FBBF /* BloomCore.framework */; };
+		F19C5A962E58518000DAE235 /* BloomCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F19CEA4F2E536FE600D1FBBF /* BloomCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F19C5A9C2E58538F00DAE235 /* DefaultPeriodService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5A9A2E58538F00DAE235 /* DefaultPeriodService.swift */; };
+		F19C5A9F2E58539200DAE235 /* BloomApplicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5A9D2E58539200DAE235 /* BloomApplicationTests.swift */; };
+		F19C5AA12E5857E800DAE235 /* MockPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5AA02E5857E800DAE235 /* MockPeriod.swift */; };
+		F19C5AA32E58598400DAE235 /* CycleOverviewViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5AA22E58598400DAE235 /* CycleOverviewViewModelTests.swift */; };
 		F19C5DF42E5621CA00D72A5A /* BloomCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19CEA4F2E536FE600D1FBBF /* BloomCore.framework */; };
 		F19C5DFE2E5703FF00D72A5A /* BloomStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19C5DD82E5615DB00D72A5A /* BloomStorage.framework */; };
 		F19C5E092E5717C100D72A5A /* UserDefaultsPeriodStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5E042E5717C100D72A5A /* UserDefaultsPeriodStore.swift */; };
@@ -23,11 +37,44 @@
 		F19C5E242E571CFE00D72A5A /* PrimaryPeriodRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5E232E571CFE00D72A5A /* PrimaryPeriodRepository.swift */; };
 		F19C5EA02E576F0600D72A5A /* BloomApplication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19C5E972E576F0600D72A5A /* BloomApplication.framework */; };
 		F19CEA582E536FE600D1FBBF /* BloomCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19CEA4F2E536FE600D1FBBF /* BloomCore.framework */; };
-		F19CEA622E536FE600D1FBBF /* BloomCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19CEA4F2E536FE600D1FBBF /* BloomCore.framework */; };
-		F19CEA632E536FE600D1FBBF /* BloomCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F19CEA4F2E536FE600D1FBBF /* BloomCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		F19C5A7B2E584CB900DAE235 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F19CEA1A2E53692000D1FBBF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F19CEA212E53692000D1FBBF;
+			remoteInfo = Bloom;
+		};
+		F19C5A8A2E5850C400DAE235 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F19CEA1A2E53692000D1FBBF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F19CEA4E2E536FE600D1FBBF;
+			remoteInfo = BloomCore;
+		};
+		F19C5A8F2E5850CA00DAE235 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F19CEA1A2E53692000D1FBBF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F19C5E962E576F0600D72A5A;
+			remoteInfo = BloomApplication;
+		};
+		F19C5A932E5850CF00DAE235 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F19CEA1A2E53692000D1FBBF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F19C5DD72E5615DB00D72A5A;
+			remoteInfo = BloomStorage;
+		};
+		F19C5A972E58518000DAE235 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F19CEA1A2E53692000D1FBBF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F19CEA4E2E536FE600D1FBBF;
+			remoteInfo = BloomCore;
+		};
 		F19C5DE22E5615DB00D72A5A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F19CEA1A2E53692000D1FBBF /* Project object */;
@@ -63,23 +110,29 @@
 			remoteGlobalIDString = F19CEA212E53692000D1FBBF;
 			remoteInfo = Bloom;
 		};
-		F19CEA602E536FE600D1FBBF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F19CEA1A2E53692000D1FBBF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F19CEA4E2E536FE600D1FBBF;
-			remoteInfo = BloomCore;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		F19CEA672E536FE600D1FBBF /* Embed Frameworks */ = {
+		F19C5A8C2E5850C500DAE235 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				F19CEA632E536FE600D1FBBF /* BloomCore.framework in Embed Frameworks */,
+				F19C5A892E5850C400DAE235 /* BloomCore.framework in Embed Frameworks */,
+				F19C5A922E5850CF00DAE235 /* BloomStorage.framework in Embed Frameworks */,
+				F19C5A8E2E5850CA00DAE235 /* BloomApplication.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F19C5A992E58518000DAE235 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F19C5A962E58518000DAE235 /* BloomCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,6 +140,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F19C5A712E57771700DAE235 /* BloomCoreTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = BloomCoreTests.xctestplan; sourceTree = "<group>"; };
+		F19C5A772E584CB900DAE235 /* BloomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BloomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F19C5A842E584DAA00DAE235 /* CycleOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleOverviewViewModel.swift; sourceTree = "<group>"; };
+		F19C5A862E58502100DAE235 /* PredictionServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionServiceProtocol.swift; sourceTree = "<group>"; };
+		F19C5A9A2E58538F00DAE235 /* DefaultPeriodService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPeriodService.swift; sourceTree = "<group>"; };
+		F19C5A9D2E58539200DAE235 /* BloomApplicationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloomApplicationTests.swift; sourceTree = "<group>"; };
+		F19C5AA02E5857E800DAE235 /* MockPeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPeriod.swift; sourceTree = "<group>"; };
+		F19C5AA22E58598400DAE235 /* CycleOverviewViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleOverviewViewModelTests.swift; sourceTree = "<group>"; };
 		F19C5DD82E5615DB00D72A5A /* BloomStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BloomStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F19C5DE02E5615DB00D72A5A /* BloomStorageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BloomStorageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F19C5E022E5717C100D72A5A /* PeriodRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodRepository.swift; sourceTree = "<group>"; };
@@ -108,20 +169,14 @@
 		F19CEA572E536FE600D1FBBF /* BloomCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BloomCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		F19C5E982E576F0600D72A5A /* BloomApplication */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = BloomApplication;
-			sourceTree = "<group>";
-		};
-		F19C5EA32E576F0600D72A5A /* BloomApplicationTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = BloomApplicationTests;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
-
 /* Begin PBXFrameworksBuildPhase section */
+		F19C5A742E584CB900DAE235 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F19C5DD52E5615DB00D72A5A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -142,6 +197,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F19C5A952E58518000DAE235 /* BloomCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,7 +213,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F19CEA622E536FE600D1FBBF /* BloomCore.framework in Frameworks */,
+				F19C5A882E5850C400DAE235 /* BloomCore.framework in Frameworks */,
+				F19C5A912E5850CF00DAE235 /* BloomStorage.framework in Frameworks */,
+				F19C5A8D2E5850CA00DAE235 /* BloomApplication.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,6 +237,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F19C5A722E584A9500DAE235 /* CycleOverView */ = {
+			isa = PBXGroup;
+			children = (
+				F19C5A842E584DAA00DAE235 /* CycleOverviewViewModel.swift */,
+			);
+			path = CycleOverView;
+			sourceTree = "<group>";
+		};
+		F19C5A812E584D8D00DAE235 /* BloomTests */ = {
+			isa = PBXGroup;
+			children = (
+				F19C5A832E584D9000DAE235 /* CycleOverViewTests */,
+			);
+			path = BloomTests;
+			sourceTree = "<group>";
+		};
+		F19C5A832E584D9000DAE235 /* CycleOverViewTests */ = {
+			isa = PBXGroup;
+			children = (
+				F19C5AA22E58598400DAE235 /* CycleOverviewViewModelTests.swift */,
+				F19C5AA02E5857E800DAE235 /* MockPeriod.swift */,
+			);
+			path = CycleOverViewTests;
+			sourceTree = "<group>";
+		};
+		F19C5A9B2E58538F00DAE235 /* BloomApplication */ = {
+			isa = PBXGroup;
+			children = (
+				F19C5A9A2E58538F00DAE235 /* DefaultPeriodService.swift */,
+			);
+			path = BloomApplication;
+			sourceTree = "<group>";
+		};
+		F19C5A9E2E58539200DAE235 /* BloomApplicationTests */ = {
+			isa = PBXGroup;
+			children = (
+				F19C5A9D2E58539200DAE235 /* BloomApplicationTests.swift */,
+			);
+			path = BloomApplicationTests;
+			sourceTree = "<group>";
+		};
 		F19C5DF32E5621CA00D72A5A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -198,7 +297,7 @@
 		F19C5E0F2E5717C600D72A5A /* Bloom */ = {
 			isa = PBXGroup;
 			children = (
-				F19C5E8F2E576E1D00D72A5A /* Application */,
+				F19C5A722E584A9500DAE235 /* CycleOverView */,
 				F19C5E0C2E5717C600D72A5A /* Assets.xcassets */,
 				F19C5E0D2E5717C600D72A5A /* BloomApp.swift */,
 				F19C5E0E2E5717C600D72A5A /* ContentView.swift */,
@@ -209,8 +308,9 @@
 		F19C5E152E5717C900D72A5A /* BloomCore */ = {
 			isa = PBXGroup;
 			children = (
-				F19C5E132E5717C900D72A5A /* CycleTracker.swift */,
+				F19C5A862E58502100DAE235 /* PredictionServiceProtocol.swift */,
 				F19C5E142E5717C900D72A5A /* Period.swift */,
+				F19C5E132E5717C900D72A5A /* CycleTracker.swift */,
 			);
 			path = BloomCore;
 			sourceTree = "<group>";
@@ -258,23 +358,18 @@
 			path = LocalStoreTests;
 			sourceTree = "<group>";
 		};
-		F19C5E8F2E576E1D00D72A5A /* Application */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Application;
-			sourceTree = "<group>";
-		};
 		F19CEA192E53692000D1FBBF = {
 			isa = PBXGroup;
 			children = (
+				F19C5A712E57771700DAE235 /* BloomCoreTests.xctestplan */,
 				F19C5E0F2E5717C600D72A5A /* Bloom */,
+				F19C5A812E584D8D00DAE235 /* BloomTests */,
 				F19C5E152E5717C900D72A5A /* BloomCore */,
 				F19C5E192E5717CC00D72A5A /* BloomCoreTests */,
 				F19C5E052E5717C100D72A5A /* BloomStorage */,
 				F19C5E1E2E57186B00D72A5A /* BloomStorageTests */,
-				F19C5E982E576F0600D72A5A /* BloomApplication */,
-				F19C5EA32E576F0600D72A5A /* BloomApplicationTests */,
+				F19C5A9B2E58538F00DAE235 /* BloomApplication */,
+				F19C5A9E2E58539200DAE235 /* BloomApplicationTests */,
 				F19C5DF32E5621CA00D72A5A /* Frameworks */,
 				F19CEA232E53692000D1FBBF /* Products */,
 			);
@@ -290,6 +385,7 @@
 				F19C5DE02E5615DB00D72A5A /* BloomStorageTests.xctest */,
 				F19C5E972E576F0600D72A5A /* BloomApplication.framework */,
 				F19C5E9F2E576F0600D72A5A /* BloomApplicationTests.xctest */,
+				F19C5A772E584CB900DAE235 /* BloomTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -321,6 +417,26 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		F19C5A762E584CB900DAE235 /* BloomTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F19C5A7D2E584CB900DAE235 /* Build configuration list for PBXNativeTarget "BloomTests" */;
+			buildPhases = (
+				F19C5A732E584CB900DAE235 /* Sources */,
+				F19C5A742E584CB900DAE235 /* Frameworks */,
+				F19C5A752E584CB900DAE235 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F19C5A7C2E584CB900DAE235 /* PBXTargetDependency */,
+			);
+			name = BloomTests;
+			packageProductDependencies = (
+			);
+			productName = BloomTests;
+			productReference = F19C5A772E584CB900DAE235 /* BloomTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		F19C5DD72E5615DB00D72A5A /* BloomStorage */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F19C5DE72E5615DB00D72A5A /* Build configuration list for PBXNativeTarget "BloomStorage" */;
@@ -370,13 +486,12 @@
 				F19C5E932E576F0600D72A5A /* Sources */,
 				F19C5E942E576F0600D72A5A /* Frameworks */,
 				F19C5E952E576F0600D72A5A /* Resources */,
+				F19C5A992E58518000DAE235 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				F19C5E982E576F0600D72A5A /* BloomApplication */,
+				F19C5A982E58518000DAE235 /* PBXTargetDependency */,
 			);
 			name = BloomApplication;
 			packageProductDependencies = (
@@ -398,9 +513,6 @@
 			dependencies = (
 				F19C5EA22E576F0600D72A5A /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				F19C5EA32E576F0600D72A5A /* BloomApplicationTests */,
-			);
 			name = BloomApplicationTests;
 			packageProductDependencies = (
 			);
@@ -415,12 +527,14 @@
 				F19CEA1E2E53692000D1FBBF /* Sources */,
 				F19CEA1F2E53692000D1FBBF /* Frameworks */,
 				F19CEA202E53692000D1FBBF /* Resources */,
-				F19CEA672E536FE600D1FBBF /* Embed Frameworks */,
+				F19C5A8C2E5850C500DAE235 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				F19CEA612E536FE600D1FBBF /* PBXTargetDependency */,
+				F19C5A8B2E5850C400DAE235 /* PBXTargetDependency */,
+				F19C5A902E5850CA00DAE235 /* PBXTargetDependency */,
+				F19C5A942E5850CF00DAE235 /* PBXTargetDependency */,
 			);
 			name = Bloom;
 			packageProductDependencies = (
@@ -480,6 +594,10 @@
 				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1640;
 				TargetAttributes = {
+					F19C5A762E584CB900DAE235 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = F19CEA212E53692000D1FBBF;
+					};
 					F19C5DD72E5615DB00D72A5A = {
 						CreatedOnToolsVersion = 16.4;
 					};
@@ -518,6 +636,7 @@
 			projectRoot = "";
 			targets = (
 				F19CEA212E53692000D1FBBF /* Bloom */,
+				F19C5A762E584CB900DAE235 /* BloomTests */,
 				F19CEA4E2E536FE600D1FBBF /* BloomCore */,
 				F19CEA562E536FE600D1FBBF /* BloomCoreTests */,
 				F19C5DD72E5615DB00D72A5A /* BloomStorage */,
@@ -529,6 +648,13 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F19C5A752E584CB900DAE235 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F19C5DD62E5615DB00D72A5A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -582,6 +708,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F19C5A732E584CB900DAE235 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F19C5AA32E58598400DAE235 /* CycleOverviewViewModelTests.swift in Sources */,
+				F19C5AA12E5857E800DAE235 /* MockPeriod.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F19C5DD42E5615DB00D72A5A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -602,6 +737,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F19C5A9C2E58538F00DAE235 /* DefaultPeriodService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,6 +745,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F19C5A9F2E58539200DAE235 /* BloomApplicationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -617,6 +754,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F19C5E102E5717C600D72A5A /* BloomApp.swift in Sources */,
+				F19C5A852E584DAA00DAE235 /* CycleOverviewViewModel.swift in Sources */,
 				F19C5E112E5717C600D72A5A /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -631,6 +769,7 @@
 				F19C5E162E5717C900D72A5A /* CycleTracker.swift in Sources */,
 				F19C5E172E5717C900D72A5A /* Period.swift in Sources */,
 				F19C5E242E571CFE00D72A5A /* PrimaryPeriodRepository.swift in Sources */,
+				F19C5A872E58502100DAE235 /* PredictionServiceProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,6 +784,31 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		F19C5A7C2E584CB900DAE235 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F19CEA212E53692000D1FBBF /* Bloom */;
+			targetProxy = F19C5A7B2E584CB900DAE235 /* PBXContainerItemProxy */;
+		};
+		F19C5A8B2E5850C400DAE235 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F19CEA4E2E536FE600D1FBBF /* BloomCore */;
+			targetProxy = F19C5A8A2E5850C400DAE235 /* PBXContainerItemProxy */;
+		};
+		F19C5A902E5850CA00DAE235 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F19C5E962E576F0600D72A5A /* BloomApplication */;
+			targetProxy = F19C5A8F2E5850CA00DAE235 /* PBXContainerItemProxy */;
+		};
+		F19C5A942E5850CF00DAE235 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F19C5DD72E5615DB00D72A5A /* BloomStorage */;
+			targetProxy = F19C5A932E5850CF00DAE235 /* PBXContainerItemProxy */;
+		};
+		F19C5A982E58518000DAE235 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F19CEA4E2E536FE600D1FBBF /* BloomCore */;
+			targetProxy = F19C5A972E58518000DAE235 /* PBXContainerItemProxy */;
+		};
 		F19C5DE32E5615DB00D72A5A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F19C5DD72E5615DB00D72A5A /* BloomStorage */;
@@ -670,14 +834,47 @@
 			target = F19CEA212E53692000D1FBBF /* Bloom */;
 			targetProxy = F19CEA5B2E536FE600D1FBBF /* PBXContainerItemProxy */;
 		};
-		F19CEA612E536FE600D1FBBF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F19CEA4E2E536FE600D1FBBF /* BloomCore */;
-			targetProxy = F19CEA602E536FE600D1FBBF /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		F19C5A7E2E584CB900DAE235 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9MRYBG62JT;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = exwhyzee.BloomTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bloom.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Bloom";
+			};
+			name = Debug;
+		};
+		F19C5A7F2E584CB900DAE235 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9MRYBG62JT;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = exwhyzee.BloomTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bloom.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Bloom";
+			};
+			name = Release;
+		};
 		F19C5DE82E5615DB00D72A5A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -702,7 +899,12 @@
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = exwhyzee.BloomStorage;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				REGISTER_APP_GROUPS = YES;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_MODULE = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
@@ -737,7 +939,12 @@
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = exwhyzee.BloomStorage;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				REGISTER_APP_GROUPS = YES;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_MODULE = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
@@ -758,6 +965,11 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = exwhyzee.BloomStorageTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -774,6 +986,11 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = exwhyzee.BloomStorageTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -812,12 +1029,13 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_MODULE = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 				XROS_DEPLOYMENT_TARGET = 2.5;
@@ -856,12 +1074,13 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_MODULE = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 				XROS_DEPLOYMENT_TARGET = 2.5;
@@ -882,10 +1101,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = exwhyzee.BloomApplicationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				XROS_DEPLOYMENT_TARGET = 2.5;
 			};
 			name = Debug;
@@ -904,10 +1124,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = exwhyzee.BloomApplicationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				XROS_DEPLOYMENT_TARGET = 2.5;
 			};
 			name = Release;
@@ -1043,6 +1264,8 @@
 				DEVELOPMENT_TEAM = 9MRYBG62JT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Bloom;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1052,9 +1275,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = exwhyzee.Bloom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1071,6 +1299,8 @@
 				DEVELOPMENT_TEAM = 9MRYBG62JT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Bloom;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1080,9 +1310,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = exwhyzee.Bloom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1121,12 +1356,13 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_MODULE = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 				XROS_DEPLOYMENT_TARGET = 2.5;
@@ -1165,12 +1401,13 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_MODULE = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 				XROS_DEPLOYMENT_TARGET = 2.5;
@@ -1191,10 +1428,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = exwhyzee.BloomCoreTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				XROS_DEPLOYMENT_TARGET = 2.5;
 			};
 			name = Debug;
@@ -1213,10 +1451,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = exwhyzee.BloomCoreTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				XROS_DEPLOYMENT_TARGET = 2.5;
 			};
 			name = Release;
@@ -1224,6 +1463,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F19C5A7D2E584CB900DAE235 /* Build configuration list for PBXNativeTarget "BloomTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F19C5A7E2E584CB900DAE235 /* Debug */,
+				F19C5A7F2E584CB900DAE235 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F19C5DE72E5615DB00D72A5A /* Build configuration list for PBXNativeTarget "BloomStorage" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

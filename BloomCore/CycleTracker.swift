@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class CycleTracker {
+public class CycleTracker: PredictionServiceProtocol {
     public var periods: [Period] = []
     
     public init() {}

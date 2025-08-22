@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "3D00C836-DF85-4E0C-8D96-978314B6E84C",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Bloom.xcodeproj",
+        "identifier" : "F19CEA562E536FE600D1FBBF",
+        "name" : "BloomCoreTests"
+      }
+    }
+  ],
+  "version" : 1
+}
