@@ -14,8 +14,8 @@ class CycleOverviewViewModel: ObservableObject {
     
     @Published var periodList: [Period] = []
     
-    @Published var lastPeriodText: String = ""
-    @Published var cycleDayText: String = ""
+    @Published var lastPeriodText: String = "last period - 24th aug"
+    @Published var cycleDayText: String = "7th day of your cycle"
     @Published var nextPeriodText: String = ""
     @Published var fertileWindowText: String = ""
     @Published var averageCycleLengthText: String = ""
