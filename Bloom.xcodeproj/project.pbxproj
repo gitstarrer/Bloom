@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F131F8412E58951A00EAFE7E /* PeriodOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131F8402E58951A00EAFE7E /* PeriodOverviewView.swift */; };
+		F15DB9292E5F2C8700AC5455 /* LogPeriodViewBasic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15DB9282E5F2C8700AC5455 /* LogPeriodViewBasic.swift */; };
+		F15DB92B2E5F341A00AC5455 /* LogPeriodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15DB92A2E5F341A00AC5455 /* LogPeriodView.swift */; };
+		F15DB92D2E5F47A000AC5455 /* NebulaBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15DB92C2E5F47A000AC5455 /* NebulaBackgroundView.swift */; };
 		F19C5A852E584DAA00DAE235 /* CycleOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5A842E584DAA00DAE235 /* CycleOverviewViewModel.swift */; };
 		F19C5A872E58502100DAE235 /* PredictionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5A862E58502100DAE235 /* PredictionServiceProtocol.swift */; };
 		F19C5A882E5850C400DAE235 /* BloomCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19CEA4F2E536FE600D1FBBF /* BloomCore.framework */; };
@@ -139,6 +143,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F131F8402E58951A00EAFE7E /* PeriodOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodOverviewView.swift; sourceTree = "<group>"; };
+		F15DB9282E5F2C8700AC5455 /* LogPeriodViewBasic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPeriodViewBasic.swift; sourceTree = "<group>"; };
+		F15DB92A2E5F341A00AC5455 /* LogPeriodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPeriodView.swift; sourceTree = "<group>"; };
+		F15DB92C2E5F47A000AC5455 /* NebulaBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NebulaBackgroundView.swift; sourceTree = "<group>"; };
 		F19C5A712E57771700DAE235 /* BloomCoreTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = BloomCoreTests.xctestplan; sourceTree = "<group>"; };
 		F19C5A772E584CB900DAE235 /* BloomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BloomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F19C5A842E584DAA00DAE235 /* CycleOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleOverviewViewModel.swift; sourceTree = "<group>"; };
@@ -235,9 +243,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F15DB9272E5F2C7900AC5455 /* LogPeriod */ = {
+			isa = PBXGroup;
+			children = (
+				F15DB92A2E5F341A00AC5455 /* LogPeriodView.swift */,
+				F15DB9282E5F2C8700AC5455 /* LogPeriodViewBasic.swift */,
+			);
+			path = LogPeriod;
+			sourceTree = "<group>";
+		};
 		F19C5A722E584A9500DAE235 /* CycleOverView */ = {
 			isa = PBXGroup;
 			children = (
+				F131F8402E58951A00EAFE7E /* PeriodOverviewView.swift */,
 				F19C5A842E584DAA00DAE235 /* CycleOverviewViewModel.swift */,
 			);
 			path = CycleOverView;
@@ -294,6 +312,8 @@
 		F19C5E0F2E5717C600D72A5A /* Bloom */ = {
 			isa = PBXGroup;
 			children = (
+				F15DB92C2E5F47A000AC5455 /* NebulaBackgroundView.swift */,
+				F15DB9272E5F2C7900AC5455 /* LogPeriod */,
 				F19C5A722E584A9500DAE235 /* CycleOverView */,
 				F19C5E0C2E5717C600D72A5A /* Assets.xcassets */,
 				F19C5E0D2E5717C600D72A5A /* BloomApp.swift */,
@@ -749,9 +769,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F131F8412E58951A00EAFE7E /* PeriodOverviewView.swift in Sources */,
 				F19C5E102E5717C600D72A5A /* BloomApp.swift in Sources */,
 				F19C5A852E584DAA00DAE235 /* CycleOverviewViewModel.swift in Sources */,
+				F15DB92D2E5F47A000AC5455 /* NebulaBackgroundView.swift in Sources */,
 				F19C5E112E5717C600D72A5A /* ContentView.swift in Sources */,
+				F15DB92B2E5F341A00AC5455 /* LogPeriodView.swift in Sources */,
+				F15DB9292E5F2C8700AC5455 /* LogPeriodViewBasic.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
