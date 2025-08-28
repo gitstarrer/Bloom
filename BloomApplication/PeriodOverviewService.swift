@@ -8,13 +8,7 @@
 import Foundation
 import BloomCore
 
-public protocol PeriodService {
-    func addPeriod(_ period: Period) async throws
-    func deletePeriod(_ period: Period) async throws
-    func getAllPeriods() -> [Period]
-}
-
-public protocol PeriodOverviewProtocol {
+public protocol PeriodOverviewServiceProtocol {
     func getAllPeriods() -> [Period]
     func predictNextPeriod(fromDate date: Date) throws -> Date
     func getFertileWindow(forDate currentDate: Date) throws -> (start: Date, end: Date)
@@ -23,11 +17,11 @@ public protocol PeriodOverviewProtocol {
     func getOvulationDate(forDate currentDate: Date) throws -> Date
 }
 
-public final class PeriodOverviewService: PeriodOverviewProtocol {
+public final class PeriodOverviewService: PeriodOverviewServiceProtocol {
     private let tracker: PredictionServiceProtocol
-    private let repository: PeriodRepository
+    private let repository: PeriodRepositoryProtocol
 
-    public init(tracker: PredictionServiceProtocol, repository: PeriodRepository) {
+    public init(tracker: PredictionServiceProtocol, repository: PeriodRepositoryProtocol) {
         self.tracker = tracker
         self.repository = repository
     }

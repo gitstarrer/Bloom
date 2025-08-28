@@ -9,17 +9,12 @@
 import SwiftUI
 
 struct LogPeriodView: View {
-    @State private var selectedDate = Date()
-    @State private var flowLevel: Int = 1
-    @State private var symptoms: Set<String> = []
-    @State private var moods: Set<String> = []
-    @State private var activities: Set<String> = []
-    @State private var journal: String = ""
+    @StateObject var viewModel: LogPeriodViewModel
 
-    let allSymptoms = ["Cramps", "Headache", "Mood Swings", "Fatigue", "Bloating", "Nausea"]
-    let allMoods = ["Happy", "Sad", "Anxious", "Irritable", "Calm", "Energetic"]
-    let allActivities = ["Exercise", "Sex", "Travel", "Work", "Relax", "Social"]
-
+    init(viewModel: LogPeriodViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
     var body: some View {
         ZStack {
             NebulaBackgroundView()
@@ -28,25 +23,26 @@ struct LogPeriodView: View {
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 20) {
                         PlanetHeader()
-                        DateSection(selectedDate: $selectedDate)
-                        FlowLevelSection(flowLevel: $flowLevel)
-                        SymptomsSection(allSymptoms: allSymptoms, symptoms: $symptoms)
-                        MoodSection(allMoods: allMoods, moods: $moods)
-                        ActivitiesSection(allActivities: allActivities, activities: $activities)
-                        JournalSection(journal: $journal)
+                        DateSection(selectedDate: $viewModel.selectedDate)
+                        FlowLevelSection(flowLevel: $viewModel.flowLevel)
+                        SymptomsSection(allSymptoms: viewModel.allSymptoms,
+                                        symptoms: $viewModel.symptoms,
+                                        toggle: viewModel.toggleSymptom)
+                        MoodSection(allMoods: viewModel.allMoods,
+                                    moods: $viewModel.moods,
+                                    toggle: viewModel.toggleMood)
+                        ActivitiesSection(allActivities: viewModel.allActivities,
+                                          activities: $viewModel.activities,
+                                          toggle: viewModel.toggleActivity)
+                        JournalSection(journal: $viewModel.journal)
                     }
                 }
                 .padding(.horizontal)
 
                 SaveButtonSection(
-                    date: selectedDate,
-                    flow: flowLevel,
-                    symptoms: symptoms,
-                    moods: moods,
-                    activities: activities,
-                    journal: journal
+                    saveAction: viewModel.save
                 )
-                .padding()
+                    .padding()
             }
         }
     }
@@ -104,7 +100,8 @@ private struct FlowLevelSection: View {
 private struct SymptomsSection: View {
     let allSymptoms: [String]
     @Binding var symptoms: Set<String>
-
+    let toggle: (String) -> Void
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Symptoms")
@@ -118,7 +115,7 @@ private struct SymptomsSection: View {
                             label: symptom,
                             isSelected: symptoms.contains(symptom),
                             action: {
-                                toggleSymptom(symptom)
+                                toggle(symptom)
                             }
                         )
                     }
@@ -127,21 +124,13 @@ private struct SymptomsSection: View {
             }
         }
     }
-
-    private func toggleSymptom(_ symptom: String) {
-        if symptoms.contains(symptom) {
-            symptoms.remove(symptom)
-        } else {
-            symptoms.insert(symptom)
-        }
-    }
 }
 
 
 private struct MoodSection: View {
     let allMoods: [String]
     @Binding var moods: Set<String>
-
+    let toggle: (String) -> Void
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Mood")
@@ -159,20 +148,13 @@ private struct MoodSection: View {
             }
         }
     }
-
-    private func toggle(_ mood: String) {
-        if moods.contains(mood) {
-            moods.remove(mood)
-        } else {
-            moods.insert(mood)
-        }
-    }
 }
 
 private struct ActivitiesSection: View {
     let allActivities: [String]
     @Binding var activities: Set<String>
-
+    let toggle: (String) -> Void
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Activities")
@@ -188,14 +170,6 @@ private struct ActivitiesSection: View {
                     }
                 }
             }
-        }
-    }
-
-    private func toggle(_ activity: String) {
-        if activities.contains(activity) {
-            activities.remove(activity)
-        } else {
-            activities.insert(activity)
         }
     }
 }
@@ -254,29 +228,19 @@ struct CapsuleButton: View {
 }
 
 private struct SaveButtonSection: View {
-    let date: Date
-    let flow: Int
-    let symptoms: Set<String>
-    let moods: Set<String>
-    let activities: Set<String>
-    let journal: String
+    let saveAction: () -> Void
 
     var body: some View {
-        Button(action: {
-            print("Saved: \(date)")
-            print("Flow: \(flow)")
-            print("Symptoms: \(symptoms)")
-            print("Moods: \(moods)")
-            print("Activities: \(activities)")
-            print("Journal: \(journal)")
-        }) {
+        Button(action: saveAction) {
             Text("Save Entry")
                 .font(.headline)
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
                 .padding()
                 .background(
-                    LinearGradient(colors: [.pink, .purple], startPoint: .topLeading, endPoint: .bottomTrailing)
+                    LinearGradient(colors: [.pink, .purple],
+                                   startPoint: .topLeading,
+                                   endPoint: .bottomTrailing)
                 )
                 .cornerRadius(14)
                 .shadow(color: .pink.opacity(0.6), radius: 12, x: 0, y: 4)
@@ -284,8 +248,8 @@ private struct SaveButtonSection: View {
     }
 }
 
-#Preview {
-    NavigationView {
-        LogPeriodView()
-    }
-}
+//#Preview {
+//    NavigationView {
+//        LogPeriodView()
+//    }
+//}

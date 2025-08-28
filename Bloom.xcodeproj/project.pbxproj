@@ -14,6 +14,9 @@
 		F15DB92F2E5F506600AC5455 /* EntriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15DB92E2E5F506600AC5455 /* EntriesView.swift */; };
 		F15DB9322E60287500AC5455 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15DB9312E60287500AC5455 /* Helpers.swift */; };
 		F15DB9352E60357900AC5455 /* LogPeriodViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15DB9342E60357900AC5455 /* LogPeriodViewModelTests.swift */; };
+		F15DB9372E6048DE00AC5455 /* LogPeriodViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15DB9362E6048DE00AC5455 /* LogPeriodViewModelTests.swift */; };
+		F15DB9392E60518100AC5455 /* LogPeriodService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15DB9382E60518100AC5455 /* LogPeriodService.swift */; };
+		F15DB93B2E60536700AC5455 /* LogPeriodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15DB93A2E60536700AC5455 /* LogPeriodViewModel.swift */; };
 		F19C5A852E584DAA00DAE235 /* CycleOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5A842E584DAA00DAE235 /* CycleOverviewViewModel.swift */; };
 		F19C5A872E58502100DAE235 /* PredictionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5A862E58502100DAE235 /* PredictionServiceProtocol.swift */; };
 		F19C5A882E5850C400DAE235 /* BloomCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19CEA4F2E536FE600D1FBBF /* BloomCore.framework */; };
@@ -25,13 +28,13 @@
 		F19C5A952E58518000DAE235 /* BloomCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19CEA4F2E536FE600D1FBBF /* BloomCore.framework */; };
 		F19C5A962E58518000DAE235 /* BloomCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F19CEA4F2E536FE600D1FBBF /* BloomCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F19C5A9C2E58538F00DAE235 /* PeriodOverviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5A9A2E58538F00DAE235 /* PeriodOverviewService.swift */; };
-		F19C5A9F2E58539200DAE235 /* BloomApplicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5A9D2E58539200DAE235 /* BloomApplicationTests.swift */; };
+		F19C5A9F2E58539200DAE235 /* PeriodOverviewServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5A9D2E58539200DAE235 /* PeriodOverviewServiceTests.swift */; };
 		F19C5AA32E58598400DAE235 /* CycleOverviewViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5AA22E58598400DAE235 /* CycleOverviewViewModelTests.swift */; };
 		F19C5DF42E5621CA00D72A5A /* BloomCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19CEA4F2E536FE600D1FBBF /* BloomCore.framework */; };
 		F19C5DFE2E5703FF00D72A5A /* BloomStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19C5DD82E5615DB00D72A5A /* BloomStorage.framework */; };
 		F19C5E092E5717C100D72A5A /* UserDefaultsPeriodStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5E042E5717C100D72A5A /* UserDefaultsPeriodStore.swift */; };
 		F19C5E0A2E5717C100D72A5A /* PeriodStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5E032E5717C100D72A5A /* PeriodStore.swift */; };
-		F19C5E0B2E5717C100D72A5A /* PeriodRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5E022E5717C100D72A5A /* PeriodRepository.swift */; };
+		F19C5E0B2E5717C100D72A5A /* PeriodRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5E022E5717C100D72A5A /* PeriodRepositoryProtocol.swift */; };
 		F19C5E102E5717C600D72A5A /* BloomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5E0D2E5717C600D72A5A /* BloomApp.swift */; };
 		F19C5E112E5717C600D72A5A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C5E0E2E5717C600D72A5A /* ContentView.swift */; };
 		F19C5E122E5717C600D72A5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F19C5E0C2E5717C600D72A5A /* Assets.xcassets */; };
@@ -153,16 +156,19 @@
 		F15DB92E2E5F506600AC5455 /* EntriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesView.swift; sourceTree = "<group>"; };
 		F15DB9312E60287500AC5455 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		F15DB9342E60357900AC5455 /* LogPeriodViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPeriodViewModelTests.swift; sourceTree = "<group>"; };
+		F15DB9362E6048DE00AC5455 /* LogPeriodViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPeriodViewModelTests.swift; sourceTree = "<group>"; };
+		F15DB9382E60518100AC5455 /* LogPeriodService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPeriodService.swift; sourceTree = "<group>"; };
+		F15DB93A2E60536700AC5455 /* LogPeriodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPeriodViewModel.swift; sourceTree = "<group>"; };
 		F19C5A712E57771700DAE235 /* BloomCoreTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = BloomCoreTests.xctestplan; sourceTree = "<group>"; };
 		F19C5A772E584CB900DAE235 /* BloomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BloomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F19C5A842E584DAA00DAE235 /* CycleOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleOverviewViewModel.swift; sourceTree = "<group>"; };
 		F19C5A862E58502100DAE235 /* PredictionServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionServiceProtocol.swift; sourceTree = "<group>"; };
 		F19C5A9A2E58538F00DAE235 /* PeriodOverviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodOverviewService.swift; sourceTree = "<group>"; };
-		F19C5A9D2E58539200DAE235 /* BloomApplicationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloomApplicationTests.swift; sourceTree = "<group>"; };
+		F19C5A9D2E58539200DAE235 /* PeriodOverviewServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodOverviewServiceTests.swift; sourceTree = "<group>"; };
 		F19C5AA22E58598400DAE235 /* CycleOverviewViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleOverviewViewModelTests.swift; sourceTree = "<group>"; };
 		F19C5DD82E5615DB00D72A5A /* BloomStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BloomStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F19C5DE02E5615DB00D72A5A /* BloomStorageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BloomStorageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F19C5E022E5717C100D72A5A /* PeriodRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodRepository.swift; sourceTree = "<group>"; };
+		F19C5E022E5717C100D72A5A /* PeriodRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodRepositoryProtocol.swift; sourceTree = "<group>"; };
 		F19C5E032E5717C100D72A5A /* PeriodStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodStore.swift; sourceTree = "<group>"; };
 		F19C5E042E5717C100D72A5A /* UserDefaultsPeriodStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsPeriodStore.swift; sourceTree = "<group>"; };
 		F19C5E0C2E5717C600D72A5A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -252,6 +258,7 @@
 		F15DB9272E5F2C7900AC5455 /* LogPeriod */ = {
 			isa = PBXGroup;
 			children = (
+				F15DB93A2E60536700AC5455 /* LogPeriodViewModel.swift */,
 				F15DB92A2E5F341A00AC5455 /* LogPeriodView.swift */,
 				F15DB9282E5F2C8700AC5455 /* LogPeriodViewBasic.swift */,
 			);
@@ -303,6 +310,7 @@
 		F19C5A9B2E58538F00DAE235 /* BloomApplication */ = {
 			isa = PBXGroup;
 			children = (
+				F15DB9382E60518100AC5455 /* LogPeriodService.swift */,
 				F19C5A9A2E58538F00DAE235 /* PeriodOverviewService.swift */,
 			);
 			path = BloomApplication;
@@ -312,7 +320,8 @@
 			isa = PBXGroup;
 			children = (
 				F15DB9312E60287500AC5455 /* Helpers.swift */,
-				F19C5A9D2E58539200DAE235 /* BloomApplicationTests.swift */,
+				F19C5A9D2E58539200DAE235 /* PeriodOverviewServiceTests.swift */,
+				F15DB9362E6048DE00AC5455 /* LogPeriodViewModelTests.swift */,
 			);
 			path = BloomApplicationTests;
 			sourceTree = "<group>";
@@ -369,7 +378,7 @@
 			isa = PBXGroup;
 			children = (
 				F19C5E232E571CFE00D72A5A /* PrimaryPeriodRepository.swift */,
-				F19C5E022E5717C100D72A5A /* PeriodRepository.swift */,
+				F19C5E022E5717C100D72A5A /* PeriodRepositoryProtocol.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -780,6 +789,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F19C5A9C2E58538F00DAE235 /* PeriodOverviewService.swift in Sources */,
+				F15DB9392E60518100AC5455 /* LogPeriodService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -787,8 +797,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F19C5A9F2E58539200DAE235 /* BloomApplicationTests.swift in Sources */,
+				F19C5A9F2E58539200DAE235 /* PeriodOverviewServiceTests.swift in Sources */,
 				F15DB9322E60287500AC5455 /* Helpers.swift in Sources */,
+				F15DB9372E6048DE00AC5455 /* LogPeriodViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -802,6 +813,7 @@
 				F19C5A852E584DAA00DAE235 /* CycleOverviewViewModel.swift in Sources */,
 				F15DB92D2E5F47A000AC5455 /* NebulaBackgroundView.swift in Sources */,
 				F19C5E112E5717C600D72A5A /* ContentView.swift in Sources */,
+				F15DB93B2E60536700AC5455 /* LogPeriodViewModel.swift in Sources */,
 				F15DB92B2E5F341A00AC5455 /* LogPeriodView.swift in Sources */,
 				F15DB9292E5F2C8700AC5455 /* LogPeriodViewBasic.swift in Sources */,
 			);
@@ -813,7 +825,7 @@
 			files = (
 				F19C5E092E5717C100D72A5A /* UserDefaultsPeriodStore.swift in Sources */,
 				F19C5E0A2E5717C100D72A5A /* PeriodStore.swift in Sources */,
-				F19C5E0B2E5717C100D72A5A /* PeriodRepository.swift in Sources */,
+				F19C5E0B2E5717C100D72A5A /* PeriodRepositoryProtocol.swift in Sources */,
 				F19C5E162E5717C900D72A5A /* CycleTracker.swift in Sources */,
 				F19C5E172E5717C900D72A5A /* Period.swift in Sources */,
 				F19C5E242E571CFE00D72A5A /* PrimaryPeriodRepository.swift in Sources */,

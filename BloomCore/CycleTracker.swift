@@ -24,7 +24,7 @@ public class CycleTracker: PredictionServiceProtocol {
         periods.sort { $0.startDate < $1.startDate }
     }
     
-    public func deletePeriod(cycleDate date: Period) {
+    public func delete(period date: Period) {
         periods.removeAll(where: { $0.startDate == date.startDate })
     }
     

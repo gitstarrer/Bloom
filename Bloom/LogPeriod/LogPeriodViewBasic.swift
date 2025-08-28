@@ -82,7 +82,7 @@ private struct NotesSection: View {
             TextEditor(text: $notes)
                 .frame(height: 120)
                 .padding(8)
-                .background(Color(.systemGray6))
+//                .background(Color(.systemGray6))
                 .cornerRadius(8)
         }
     }

@@ -6,22 +6,6 @@
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES"
       buildArchitectures = "Automatic">
-      <BuildActionEntries>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F19C5E962E576F0600D72A5A"
-               BuildableName = "BloomApplication.framework"
-               BlueprintName = "BloomApplication"
-               ReferencedContainer = "container:Bloom.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-      </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
@@ -35,9 +19,9 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F19C5E9E2E576F0600D72A5A"
-               BuildableName = "BloomApplicationTests.xctest"
-               BlueprintName = "BloomApplicationTests"
+               BlueprintIdentifier = "F19C5DDF2E5615DB00D72A5A"
+               BuildableName = "BloomStorageTests.xctest"
+               BlueprintName = "BloomStorageTests"
                ReferencedContainer = "container:Bloom.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -60,15 +44,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F19C5E962E576F0600D72A5A"
-            BuildableName = "BloomApplication.framework"
-            BlueprintName = "BloomApplication"
-            ReferencedContainer = "container:Bloom.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

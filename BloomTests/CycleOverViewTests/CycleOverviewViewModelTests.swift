@@ -42,14 +42,14 @@ final class CycleOverviewViewModelTests: XCTestCase {
     
     func test_setupTexts_updatesAllTexts() {
         let periods: [BloomCore.Period] = [.init(startDate: date("2025-08-21"))]
-        let sut = makeSUT(periods: periods)
+        let sut = makeSUT(periods: periods, forDay: date("2025-08-23"))
         XCTAssertEqual(sut.lastPeriodText, "Last period: \(sut.lastPeriod!.getDates().startDate.formatted(date: .abbreviated, time: .omitted))")
-        XCTAssertEqual(sut.cycleDayText, "Day 2")
-        XCTAssertEqual(sut.nextPeriodText, "Next period: \(date("2025-09-19").formatted(date: .abbreviated, time: .omitted))")
-        XCTAssertEqual(sut.fertileWindowText, "Fertile window: \(date("2025-08-17").formatted(date: .abbreviated, time: .omitted)) – \(date("2025-08-27").formatted(date: .abbreviated, time: .omitted))")
+        XCTAssertEqual(sut.cycleDayText, "Day 3")
+        XCTAssertEqual(sut.nextPeriodText, "Next period: \(date("2025-09-25").formatted(date: .abbreviated, time: .omitted))")
+        XCTAssertEqual(sut.fertileWindowText, "Fertile window: \(date("2025-08-23").formatted(date: .abbreviated, time: .omitted)) – \(date("2025-09-02").formatted(date: .abbreviated, time: .omitted))")
         XCTAssertEqual(sut.averageCycleLengthText, "Average cycle length: 23 days")
         XCTAssertEqual(sut.averagePeriodLengthText, "Average period duration: 8 days")
-        XCTAssertEqual(sut.ovulationDateText, "Ovulation: 22 Aug 2025")
+        XCTAssertEqual(sut.ovulationDateText, "Ovulation: 28 Aug 2025")
     }
     
     func test_loadData_handlesPredictNextPeriodError() {
@@ -94,9 +94,10 @@ final class CycleOverviewViewModelTests: XCTestCase {
     
     
     //Helpers
-    func makeSUT(periods: [BloomCore.Period] = []) -> CycleOverviewViewModel {
+    func makeSUT(periods: [BloomCore.Period] = [], forDay day: Date = Date()) -> CycleOverviewViewModel {
         return CycleOverviewViewModel(
-            periodService: MockPeriodService(periods: periods)
+            periodService: MockPeriodService(periods: periods),
+            forDay: day
         )
     }
     
@@ -107,7 +108,7 @@ final class CycleOverviewViewModelTests: XCTestCase {
         return formatter.date(from: string)!
     }
     
-    class MockPeriodService: PeriodOverviewProtocol {
+    class MockPeriodService: PeriodOverviewServiceProtocol {
         var periods: [BloomCore.Period]
         
         var shouldThrowOnPredictNextPeriod = false

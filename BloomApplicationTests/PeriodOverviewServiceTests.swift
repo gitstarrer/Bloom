@@ -1,5 +1,5 @@
 //
-//  BloomApplicationTests.swift
+//  PeriodOverviewServiceTests.swift
 //  BloomApplicationTests
 //
 //  Created by Himanshu on 21/08/25.
@@ -201,19 +201,22 @@ final class PeriodOverviewServiceTests: XCTestCase {
                        Calendar.current.startOfDay(for: expected))
     }
     
-    private func makeSUT(withPeriods periods: [Period] = [], file: StaticString = #filePath, line: UInt = #line) -> PeriodOverviewService {
+    private func makeSUT(withPeriods periods: [Period] = [], file: StaticString = #filePath, line: UInt = #line) -> PeriodOverviewServiceProtocol {
         let repository = PeriodRepositorySpy()
         let tracker = CycleTracker()
         repository.saved = periods
         tracker.periods = periods
+        let sut = PeriodOverviewService(tracker: tracker, repository: repository)
+        
         trackForMemoryLeaks(instance: tracker, file: file, line: line)
         trackForMemoryLeaks(instance: repository, file: file, line: line)
+        trackForMemoryLeaks(instance: sut, file: file, line: line)
         
-        return PeriodOverviewService(tracker: tracker, repository: repository)
+        return sut
     }
 }
 
-final class PeriodRepositorySpy: PeriodRepository {
+final class PeriodRepositorySpy: PeriodRepositoryProtocol {
     var saved: [Period] = []
     var deleted: [Period] = []
     

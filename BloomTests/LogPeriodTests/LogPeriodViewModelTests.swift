@@ -7,48 +7,62 @@
 
 import Foundation
 import XCTest
+@testable import Bloom
+import BloomCore
+import BloomApplication
 
+@MainActor
 class LogPeriodViewModelTests: XCTestCase {
     
-    //    func test_addPeriod_savesToTrackerAndRepository() async throws {
-    //        let period = Period(startDate: Date(), endDate: nil)
-    //
-    //        try await sut.addPeriod(period)
-    //
-    //        XCTAssertTrue(tracker.periods.contains(where: { $0 == period }))
-    //        XCTAssertTrue(repository.saved.contains(where: { $0 == period }))
-    //    }
-    //
-    //    func test_deletePeriod_removesFromTrackerAndRepository() async throws {
-    //        let period = Period(startDate: Date(), endDate: nil)
-    //        try await sut.addPeriod(period)
-    //
-    //        try await sut.deletePeriod(period)
-    //
-    //        XCTAssertTrue(tracker.periods.isEmpty)
-    //        XCTAssertTrue(repository.deleted.contains(where: { $0 == period }))
-    //    }
-    //
-    //    func test_getAllPeriods_returnsTrackerPeriods() async throws {
-    //        let period1 = Period(startDate: Date(), endDate: nil)
-    //        let period2 = Period(startDate: Date().addingTimeInterval(86400), endDate: nil)
-    //
-    //        try await sut.addPeriod(period1)
-    //        try await sut.addPeriod(period2)
-    //
-    //        let result = sut.getAllPeriods()
-    //
-    //        XCTAssertEqual(result.count, 2)
-    //        XCTAssertEqual(result.first, period1)
-    //    }
-    //
-    //    func test_addPeriod_invalidThrows() async {
-    //        let invalid = Period(startDate: Date(), endDate: Date().addingTimeInterval(-86400))
-    //        do {
-    //            try await sut.addPeriod(invalid)
-    //            XCTFail("Expected to throw CycleError.invalidDateRange but succeeded")
-    //        } catch {
-    //            XCTAssertEqual(error as? CycleError, CycleError.invalidDateRange)
-    //        }
-    //    }
+    func test_init() {
+        let sut = makeSUT()
+        XCTAssertEqual(sut.flowLevel, 1)
+        XCTAssertTrue(sut.symptoms.isEmpty)
+        XCTAssertTrue(sut.moods.isEmpty)
+        XCTAssertTrue(sut.activities.isEmpty)
+        XCTAssertTrue(sut.journal.isEmpty)
+        XCTAssertEqual(sut.allSymptoms.count, 6)
+        XCTAssertEqual(sut.allMoods.count, 6)
+        XCTAssertEqual(sut.allActivities.count, 6)
+    }
+    
+    private func makeSUT(withPeriods periods: [Period] = [], file: StaticString = #filePath, line: UInt = #line) -> LogPeriodViewModel {
+        let repository = PeriodRepositorySpy()
+        let tracker = CycleTracker()
+        repository.saved = periods
+        tracker.periods = periods
+        let periodService = LogPeriodService(tracker: tracker, repository: repository)
+        let sut = LogPeriodViewModel(logPeriodService: periodService)
+        
+        trackForMemoryLeaks(instance: periodService, file: file, line: line)
+        trackForMemoryLeaks(instance: sut, file: file, line: line)
+        
+        return sut
+    }
 }
+
+public final class PeriodRepositorySpy: PeriodRepositoryProtocol {
+    var saved: [Period] = []
+    var deleted: [Period] = []
+    
+    public func save(_ period: Period) throws {
+        saved.append(period)
+    }
+    
+    public func delete(_ period: Period) {
+        deleted.append(period)
+    }
+    
+    public func fetchAll() async -> [BloomCore.Period] {
+        return saved
+    }
+}
+
+extension XCTestCase {
+    public func trackForMemoryLeaks(instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
+        addTeardownBlock { [weak instance] in
+            XCTAssertNil(instance, "Instance should have been deallocated. Possible memory leak.",file: file, line: line)
+        }
+    }
+}
+

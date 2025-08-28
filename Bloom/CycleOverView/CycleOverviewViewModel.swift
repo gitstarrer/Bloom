@@ -10,12 +10,12 @@ import BloomCore
 import BloomApplication
 
 class CycleOverviewViewModel: ObservableObject {
-    let periodService: PeriodOverviewProtocol
+    let periodService: PeriodOverviewServiceProtocol
     
     @Published var periodList: [Period] = []
     
-    @Published var lastPeriodText: String = "last period - 24th aug"
-    @Published var cycleDayText: String = "7th day of your cycle"
+    @Published var lastPeriodText: String = ""
+    @Published var cycleDayText: String = ""
     @Published var nextPeriodText: String = ""
     @Published var fertileWindowText: String = ""
     @Published var averageCycleLengthText: String = ""
@@ -26,10 +26,10 @@ class CycleOverviewViewModel: ObservableObject {
         periodList.last
     }
     
-    init(periodService: PeriodOverviewProtocol) {
+    init(periodService: PeriodOverviewServiceProtocol, forDay day: Date = Date()) {
         self.periodService = periodService
         loadData()
-        setupTexts()
+        setupTexts(withCurrentDate: day)
     }
     
     func loadData() {

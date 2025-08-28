@@ -10,7 +10,7 @@ import Foundation
 public protocol PredictionServiceProtocol {
     var periods: [Period] { get }
     func addPeriod(_ period: Period) throws
-    func deletePeriod(cycleDate date: Period)
+    func delete(period date: Period)
     func getAverageCycleLength(maxRecentCycles: Int?) -> Int
     func predictNextPeriod(fromDate date: Date) throws -> Date
     func getAveragePeriodLength() throws -> Int

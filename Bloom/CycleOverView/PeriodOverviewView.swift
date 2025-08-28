@@ -329,7 +329,7 @@ private struct OrbitingPlanet: View {
 
 #if DEBUG
 import BloomCore
-final class PreviewPeriodService: PeriodOverviewProtocol {
+final class PreviewPeriodService: PeriodOverviewServiceProtocol {
     private let baseDate = ISO8601DateFormatter().date(from: "2025-08-21T00:00:00Z")!
 
     func getAllPeriods() -> [Period] {

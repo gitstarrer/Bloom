@@ -117,7 +117,7 @@ struct CycleTrackerTests {
         let cycleDate = createCycleDate(startDate: date("2025-02-27"), endDate: date("2025-03-03"))
         
         try? sut.addPeriod(cycleDate)
-        sut.deletePeriod(cycleDate: cycleDate)
+        sut.delete(period: cycleDate)
         
         #expect(sut.periods.isEmpty)
     }
@@ -128,7 +128,7 @@ struct CycleTrackerTests {
         let cycleDates = createMultipleCycleDates(count: 3)
         cycleDates.forEach { try? sut.addPeriod($0) }
         
-        sut.deletePeriod(cycleDate: cycleDates[1])
+        sut.delete(period: cycleDates[1])
         
         #expect(sut.periods == [cycleDates[0], cycleDates[2]])
     }
@@ -141,7 +141,7 @@ struct CycleTrackerTests {
         let updatedCycleDate = createCycleDate(startDate: date("2023-12-24"), endDate: date("2023-12-25"))
         try? sut.addPeriod(updatedCycleDate)
         
-        sut.deletePeriod(cycleDate: cycleDates[1])
+        sut.delete(period: cycleDates[1])
         
         #expect(sut.periods == [cycleDates[0], cycleDates[2]])
     }
@@ -250,9 +250,9 @@ struct CycleTrackerTests {
         let expectedNextStartDate = getExpectedCycleDay(from: date("2023-12-24"), withAverageCycle: 29, fromDate: currentDate)
         let sut = makeSUT()
         cycleDates.forEach{ try? sut.addPeriod($0) }
-        sut.deletePeriod(cycleDate: cycleDates[2])
-        sut.deletePeriod(cycleDate: cycleDates[3])
-        sut.deletePeriod(cycleDate: cycleDates[4])
+        sut.delete(period: cycleDates[2])
+        sut.delete(period: cycleDates[3])
+        sut.delete(period: cycleDates[4])
         
         let nextCycleStartDay = try? sut.predictNextPeriod(fromDate: currentDate)
         

@@ -5,7 +5,7 @@
 //  Created by Himanshu on 21/08/25.
 //
 
-public final class PrimaryPeriodRepository: PeriodRepository {
+public final class PrimaryPeriodRepository: PeriodRepositoryProtocol {
     private var store: PeriodStore
     
     public init(store: PeriodStore) {
