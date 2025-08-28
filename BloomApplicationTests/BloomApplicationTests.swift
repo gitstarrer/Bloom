@@ -40,7 +40,7 @@ final class PeriodOverviewServiceTests: XCTestCase {
         XCTAssertThrowsError(try sut.predictNextPeriod(fromDate: Date()))
     }
     
-    func test_predictNextPeriod_returnsNextPeriodDateOnValidData() throws {
+    func test_predictNextPeriod_returnsDefaultNextPeriodDateOnSingleEntry() throws {
         let startDate = Date(timeIntervalSince1970: 0)
         let period = Period(startDate: startDate, endDate: startDate.addingTimeInterval(4*24*60*60))
         let sut = makeSUT(withPeriods: [period])
@@ -48,6 +48,28 @@ final class PeriodOverviewServiceTests: XCTestCase {
         let next = try sut.predictNextPeriod(fromDate: startDate)
         
         let expected = startDate.addingTimeInterval(28*24*60*60)
+        XCTAssertEqual(next, expected)
+    }
+    
+    func test_predictNextPeriod_returnsNextPeriodDateOnMultipleEntries() throws {
+        let startDate = Date(timeIntervalSince1970: 0)
+        let p1 = Calendar.current.date(byAdding: .day, value: 17, to: startDate)!
+        let p2 = Calendar.current.date(byAdding: .day, value: 18, to: p1)!
+        let p3 = Calendar.current.date(byAdding: .day, value: 17, to: p2)!
+        let p4 = Calendar.current.date(byAdding: .day, value: 16, to: p3)!
+        let p5 = Calendar.current.date(byAdding: .day, value: 17, to: p4)!
+        let periods = [
+            Period(startDate: startDate, endDate: p1),
+            Period(startDate: p1, endDate: p2),
+            Period(startDate: p2, endDate: p3),
+            Period(startDate: p3, endDate: p4),
+            Period(startDate: p4, endDate: p5),
+        ]
+        let sut = makeSUT(withPeriods: periods)
+        
+        let next = try sut.predictNextPeriod(fromDate: startDate)
+        
+        let expected = Calendar.current.date(byAdding: .day, value: 17, to: periods.last!.getDates().startDate)!
         XCTAssertEqual(next, expected)
     }
     
