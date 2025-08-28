@@ -226,7 +226,7 @@ private struct JournalSection: View {
 }
 
 
-private struct CapsuleButton: View {
+struct CapsuleButton: View {
     let label: String
     let isSelected: Bool
     let action: () -> Void
