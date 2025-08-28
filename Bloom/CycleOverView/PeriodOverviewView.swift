@@ -313,7 +313,7 @@ private struct OrbitingPlanet: View {
 //#Preview {
 //    CycleOverviewView(
 //        vm: CycleOverviewViewModel(
-//            periodService: DefaultPeriodService(
+//            periodService: PeriodOverviewService(
 //                tracker: CycleTracker(),
 //                repository: PrimaryPeriodRepository(
 //                    store: UserDefaultsPeriodStore(userDefaults: .standard)

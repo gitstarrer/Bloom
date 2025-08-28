@@ -1,5 +1,5 @@
 //
-//  DefaultPeriodService.swift
+//  PeriodOverviewService.swift
 //  BloomApplication
 //
 //  Created by Himanshu on 21/08/25.
@@ -23,23 +23,13 @@ public protocol PeriodOverviewProtocol {
     func getOvulationDate(forDate currentDate: Date) throws -> Date
 }
 
-public final class DefaultPeriodService: PeriodOverviewProtocol {
+public final class PeriodOverviewService: PeriodOverviewProtocol {
     private let tracker: PredictionServiceProtocol
     private let repository: PeriodRepository
 
     public init(tracker: PredictionServiceProtocol, repository: PeriodRepository) {
         self.tracker = tracker
         self.repository = repository
-    }
-
-    public func addPeriod(_ period: Period) async throws {
-        try tracker.addPeriod(period)
-        try await repository.save(period)
-    }
-
-    public func deletePeriod(_ period: Period) async throws {
-        tracker.deletePeriod(cycleDate: period)
-        try await repository.delete(period)
     }
 
     public func getAllPeriods() -> [Period] {

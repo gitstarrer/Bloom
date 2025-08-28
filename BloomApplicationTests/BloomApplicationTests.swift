@@ -10,72 +10,190 @@ import BloomCore
 import BloomApplication
 
 final class DefaultPeriodServiceTests: XCTestCase {
-
-    private var repository: PeriodRepositorySpy!
-    private var tracker: CycleTracker!
-    private var sut: DefaultPeriodService!
-
-    override func setUp() {
-        super.setUp()
-        repository = PeriodRepositorySpy()
-        tracker = CycleTracker()
-        sut = DefaultPeriodService(tracker: tracker, repository: repository)
+    
+    func test_fetchAllPeriods_returnsEmptyListOnNoData() {
+        let sut = makeSUT()
+        XCTAssertEqual(sut.getAllPeriods(), [])
     }
-
-    override func tearDown() {
-        sut = nil
-        tracker = nil
-        repository = nil
-        super.tearDown()
+    
+    func test_fetchAllPeriods_returnsEntryOnSingleEntry() {
+        let period = Period(startDate: Date())
+        let sut = makeSUT(withPeriods: [period])
+        
+        XCTAssertEqual(sut.getAllPeriods(), [period])
     }
-
-    func test_addPeriod_savesToTrackerAndRepository() async throws {
-        let period = Period(startDate: Date(), endDate: nil)
-
-        try await sut.addPeriod(period)
-
-        XCTAssertTrue(tracker.periods.contains(where: { $0 == period }))
-        XCTAssertTrue(repository.saved.contains(where: { $0 == period }))
+    
+    func test_fetchAllPeriods_returnsAllEntriesOnMultipleEntries() {
+        let periods = [
+            Period(startDate: Date()),
+            Period(startDate: Date(timeIntervalSince1970: 1)),
+            Period(startDate: Date(timeIntervalSince1970: 54)),
+            Period(startDate: Date(timeIntervalSince1970: 444))
+        ]
+        let sut = makeSUT(withPeriods: periods)
+        
+        XCTAssertEqual(sut.getAllPeriods(), periods)
     }
-
-    func test_deletePeriod_removesFromTrackerAndRepository() async throws {
-        let period = Period(startDate: Date(), endDate: nil)
-        try await sut.addPeriod(period)
-
-        try await sut.deletePeriod(period)
-
-        XCTAssertTrue(tracker.periods.isEmpty)
-        XCTAssertTrue(repository.deleted.contains(where: { $0 == period }))
+    
+    func test_predictNextPeriod_throwsErrorOnEmptyData() {
+        let sut = makeSUT()
+        XCTAssertThrowsError(try sut.predictNextPeriod(fromDate: Date()))
     }
-
-    func test_getAllPeriods_returnsTrackerPeriods() async throws {
-        let period1 = Period(startDate: Date(), endDate: nil)
-        let period2 = Period(startDate: Date().addingTimeInterval(86400), endDate: nil)
-
-        try await sut.addPeriod(period1)
-        try await sut.addPeriod(period2)
-
-        let result = sut.getAllPeriods()
-
-        XCTAssertEqual(result.count, 2)
-        XCTAssertEqual(result.first, period1)
+    
+    func test_predictNextPeriod_returnsNextPeriodDateOnValidData() throws {
+        let startDate = Date(timeIntervalSince1970: 0)
+        let period = Period(startDate: startDate, endDate: startDate.addingTimeInterval(4*24*60*60))
+        let sut = makeSUT(withPeriods: [period])
+        
+        let next = try sut.predictNextPeriod(fromDate: startDate)
+        
+        let expected = startDate.addingTimeInterval(28*24*60*60)
+        XCTAssertEqual(next, expected)
     }
-
-    func test_addPeriod_invalidThrows() async {
-        let invalid = Period(startDate: Date(), endDate: Date().addingTimeInterval(-86400))
+    
+    func test_getFertileWindow_throwsErrorOnEmptyData() {
+        let sut = makeSUT()
+        XCTAssertThrowsError(try sut.getFertileWindow(forDate: Date()))
+    }
+    
+    func test_getFertileWindow_throwsErrorOnInvalidData() throws {
+        let startDate = Date(timeIntervalSince1970: 0)
+        let period = Period(startDate: startDate)
+        let sut = makeSUT(withPeriods: [period])
+        
         do {
-            try await sut.addPeriod(invalid)
-            XCTFail("Expected to throw CycleError.invalidDateRange but succeeded")
+            _ = try sut.getFertileWindow(forDate: startDate)
         } catch {
-            XCTAssertEqual(error as? CycleError, CycleError.invalidDateRange)
+            XCTAssertEqual(error as! CycleError, CycleError.notEnoughData)
         }
+    }
+    
+    func test_getFertileWindow_returnsExpectedWindowOnValidData() throws {
+        let startDate = Date(timeIntervalSince1970: 0)
+        let nextPeriod = Calendar.current.date(byAdding: .day, value: 28, to: startDate)!
+        let p1 = Period(startDate: startDate)
+        let p2 = Period(startDate: nextPeriod)
+        let sut = makeSUT(withPeriods: [p1, p2])
+        let ovulationDate = Calendar.current.date(byAdding: .day, value: 14, to: nextPeriod)!
+        let expectedStart = Calendar.current.date(byAdding: .day, value: -5, to: ovulationDate)!
+        let expectedEnd = Calendar.current.date(byAdding: .day, value: 5, to: ovulationDate)!
+        
+        let window = try! sut.getFertileWindow(forDate: startDate)
+        
+        XCTAssertEqual(window.start, expectedStart)
+        XCTAssertEqual(window.end, expectedEnd)
+    }
+    
+    func test_getAverageCycleLength_returnsZeroOnNoData() {
+        let sut = makeSUT()
+        let averageCycleLength = sut.getAverageCycleLength(maxRecentCycles: nil)
+        XCTAssertEqual(averageCycleLength, 28)
+    }
+    
+    func test_getAverageCycleLength_returnsExpectedAverageOnValidData() {
+        let first = Date(timeIntervalSince1970: 0)
+        let second = Calendar.current.date(byAdding: .day, value: 28, to: first)!
+        let third = Calendar.current.date(byAdding: .day, value: 57, to: first)!
+        
+        let periods = [Period(startDate: first), Period(startDate: second), Period(startDate: third)]
+        let sut = makeSUT(withPeriods: periods)
+        
+        let avg = sut.getAverageCycleLength(maxRecentCycles: nil)
+        
+        XCTAssertEqual(avg, 29)
+    }
+    
+    func test_getAverageCycleLength_returnsCycleLengthOnMaxRecentCyclesValue1() {
+        let first = Date(timeIntervalSince1970: 0)
+        let second = Calendar.current.date(byAdding: .day, value: 28, to: first)!
+        let third = Calendar.current.date(byAdding: .day, value: 57, to: first)!
+        
+        let periods = [Period(startDate: first), Period(startDate: second), Period(startDate: third)]
+        let sut = makeSUT(withPeriods: periods)
+        
+        let avg = sut.getAverageCycleLength(maxRecentCycles: 1)
+        
+        XCTAssertEqual(avg, 29)
+    }
+    
+    func test_getAverageCycleLength_respectsMaxRecentCycle() {
+        let first = Date(timeIntervalSince1970: 0)
+        let second = Calendar.current.date(byAdding: .day, value: 30, to: first)!
+        let third = Calendar.current.date(byAdding: .day, value: 61, to: first)!
+        
+        let periods = [Period(startDate: first), Period(startDate: second), Period(startDate: third)]
+        let sut = makeSUT(withPeriods: periods)
+        
+        let avg = sut.getAverageCycleLength(maxRecentCycles: 2)
+        
+        XCTAssertEqual(avg, 31)
+    }
+    
+    func test_getAveragePeriodLength_throwsErrorOnNoData() {
+        let sut = makeSUT()
+        
+        XCTAssertThrowsError(try sut.getAveragePeriodLength())
+    }
+    
+    func test_getAveragePeriodLength_returnsExpectedAverage() throws {
+        let start = Date(timeIntervalSince1970: 0)
+        let p1 = Period(startDate: start, endDate: start.addingTimeInterval(5*24*60*60))
+        let p2 = Period(startDate: start.addingTimeInterval(30*24*60*60),
+                        endDate: start.addingTimeInterval(35*24*60*60))
+        let sut = makeSUT(withPeriods: [p1, p2])
+        
+        let avg = try sut.getAveragePeriodLength()
+        
+        XCTAssertEqual(avg, 6)
+    }
+    
+    func test_getOvulationDate_throwsErrorOnEmptyData() {
+        let sut = makeSUT()
+        XCTAssertThrowsError(try sut.getOvulationDate(forDate: Date()))
+    }
+    
+    func test_getOvulationDate_throwsErrorOnInvalidData() {
+        let start = Date(timeIntervalSince1970: 0)
+        let p1 = Period(startDate: start)
+        let sut = makeSUT(withPeriods: [p1])
+        
+        do {
+            _ = try sut.getOvulationDate(forDate: start)
+        } catch {
+            XCTAssertEqual(error as! CycleError, CycleError.notEnoughData)
+        }
+    }
+    
+    func test_getOvulationDate_returnsExpectedDateOnValidData() throws {
+        let startDate = Date(timeIntervalSince1970: 0)
+        let nextPeriod = Calendar.current.date(byAdding: .day, value: 28, to: startDate)!
+        
+        let p1 = Period(startDate: startDate)
+        let p2 = Period(startDate: nextPeriod)
+        let sut = makeSUT(withPeriods: [p1, p2])
+        
+        let ovulation = try sut.getOvulationDate(forDate: nextPeriod)
+        let expected = Calendar.current.date(byAdding: .day, value: 14, to: nextPeriod)!
+        
+        XCTAssertEqual(Calendar.current.startOfDay(for: ovulation),
+                       Calendar.current.startOfDay(for: expected))
+    }
+    
+    private func makeSUT(withPeriods periods: [Period] = [], file: StaticString = #filePath, line: UInt = #line) -> PeriodOverviewService {
+        let repository = PeriodRepositorySpy()
+        let tracker = CycleTracker()
+        repository.saved = periods
+        tracker.periods = periods
+        trackForMemoryLeaks(instance: tracker, file: file, line: line)
+        trackForMemoryLeaks(instance: repository, file: file, line: line)
+        
+        return PeriodOverviewService(tracker: tracker, repository: repository)
     }
 }
 
-
 final class PeriodRepositorySpy: PeriodRepository {
-    private(set) var saved: [Period] = []
-    private(set) var deleted: [Period] = []
+    var saved: [Period] = []
+    var deleted: [Period] = []
     
     func save(_ period: Period) throws {
         saved.append(period)

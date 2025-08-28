@@ -30,7 +30,17 @@ public class CycleTracker: PredictionServiceProtocol {
     
     public func getAverageCycleLength(maxRecentCycles: Int? = nil) -> Int {
         guard periods.count > 1 else { return defaultCycleLength }
-
+        
+        if let maxRecentCycles, maxRecentCycles == 1 {
+            let sortedCycleDates = periods.sorted { $0.startDate < $1.startDate }
+            if let last = sortedCycleDates.last,
+               let prev = sortedCycleDates.dropLast().last {
+                let days = Calendar.current.dateComponents([.day], from: prev.startDate, to: last.startDate).day
+                return days ?? defaultCycleLength
+            }
+            return defaultCycleLength
+        }
+        
         var sortedCycleDates = periods.sorted { $0.startDate < $1.startDate }
         if let maxRecentCycles {
             sortedCycleDates = sortedCycleDates.suffix(maxRecentCycles)
