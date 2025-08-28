@@ -9,7 +9,7 @@ import XCTest
 import BloomCore
 import BloomApplication
 
-final class DefaultPeriodServiceTests: XCTestCase {
+final class PeriodOverviewServiceTests: XCTestCase {
     
     func test_fetchAllPeriods_returnsEmptyListOnNoData() {
         let sut = makeSUT()
